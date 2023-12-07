@@ -1,15 +1,11 @@
-import { useContext } from "react"
 import { useHooksMediaQuery } from "../../data/hooks/media-query"
-import { ContextMain } from "../../data/context/main"
 import { IconContext } from "react-icons"
 import { BsBullseye } from "react-icons/bs"
 import { BsCalendar2RangeFill } from "react-icons/bs"
 import { BsFillHddRackFill } from "react-icons/bs"
 
 const HomeSection2 = () => {
-	const context = useContext(ContextMain)
 	const desktopView = useHooksMediaQuery(`(min-width:768px)`)
-	context
 	desktopView
 
 	const twClasses = {

@@ -31,7 +31,7 @@ const TodoPage = () => {
 					<div id="button-group" className="w-full flex space-around">
 						{selectedTab.map((tab) => {
 							return (
-								<button className={twClasses.btnSelect} onClick={() => setSelect(tab)}>
+								<button key={tab} className={twClasses.btnSelect} onClick={() => setSelect(tab)}>
 									<span>{tab.at(0)?.toUpperCase()+tab.slice(1)}</span>
                   {select===tab && <span className="absolute w-[40%] -bottom-1 left-[30%] rounded-full border border-success-main-color/70"></span>}
 								</button>
@@ -39,7 +39,7 @@ const TodoPage = () => {
 						})}
 					</div>
           {todoDummy.map(todo=>{
-            return <TodoItem todo={todo} />
+            return <TodoItem key={todo.information.todo} todo={todo} />
           })}
 				</div>
 			</div>

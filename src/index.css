@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,6 +47,8 @@
     --color-success-main-contrast: 27,27,27;
     --color-success-dark-contrast: 251,252,248;
     --color-success-light-contrast: 27,27,27;
+
+    transition: color 300ms ease-in-out;
   }
   .theme-relax {
     --color-primary-main: 229,194,244;
@@ -88,6 +92,8 @@
     --color-success-main-contrast: 27,27,27;
     --color-success-dark-contrast: 251,252,248;
     --color-success-light-contrast: 27,27,27;
+
+    transition: color 300ms ease-in-out;
   }
   .theme-earth {
     --color-primary-main: 189,106,49;
@@ -131,5 +137,7 @@
     --color-success-main-contrast: 27,27,27;
     --color-success-dark-contrast: 251,252,248;
     --color-success-light-contrast: 27,27,27;
+
+    transition: color 300ms ease-in-out;
   }
 }

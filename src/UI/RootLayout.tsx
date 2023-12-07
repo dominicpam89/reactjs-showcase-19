@@ -5,8 +5,8 @@ import { Outlet } from "react-router-dom"
 const UIRootLayout = () => {
   const context = useContext(ContextMain)
   const twClasses = {
-    header: ``,
-    main: `${context.theme.current} p-12`
+    header: `${context.theme.current}`,
+    main: `${context.theme.current}`
   }
   return <>
     <header className={twClasses.header}>

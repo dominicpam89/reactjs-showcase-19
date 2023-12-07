@@ -1,8 +1,9 @@
 import { redirect } from "react-router-dom"
+import HomeSection1 from "./Home/Section-1";
 
 const HomePage = () => {
   return <>
-    <h1>Welcome to {import.meta.env.VITE_APP_NAME}</h1>
+    <HomeSection1 />
   </>
 }
 

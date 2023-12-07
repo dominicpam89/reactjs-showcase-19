@@ -20,7 +20,7 @@ const HomeSection3 = () => {
 	desktopView
 
 	const twClasses = {
-		container: `w-full px-16 py-24 flex flex-col items-center justify-around space-y-8 bg-gradient-to-t from-primary-main-color to-primary-dark-color`,
+		container: `w-full px-16 py-24 flex flex-col items-center justify-around space-y-8 bg-gradient-to-t from-primary-main-color to-primary-dark-color opacity-90`,
 		card: `flex flex-col space-y-4 items-center`,
     brand:{
       brandContainer: `flex flex-row space-x-5 items-center justify-center`,

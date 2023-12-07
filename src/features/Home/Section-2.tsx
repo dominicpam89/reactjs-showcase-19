@@ -9,7 +9,7 @@ const HomeSection2 = () => {
 	desktopView
 
 	const twClasses = {
-		container: `w-full px-16 py-12 h-screen flex flex-col items-center justify-around bg-primary-main-contrast`,
+		container: `w-full px-16 py-12 h-screen flex flex-col items-center justify-around bg-primary-main-contrast opacity-95`,
 		card: `flex flex-col space-y-4 items-center px-12 text-center`,
 		icon: { className: "w-14 h-auto text-primary-main-color"},
 		cardHeading: `font-extrabold text-xl text-primary-main-color uppercase`,

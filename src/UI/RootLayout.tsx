@@ -6,7 +6,7 @@ const UIRootLayout = () => {
   const context = useContext(ContextMain)
   const twClasses = {
     header: `${context.theme.current}`,
-    main: `${context.theme.current}`
+    main: `${context.theme.current} relative`
   }
   return <>
     <header className={twClasses.header}>

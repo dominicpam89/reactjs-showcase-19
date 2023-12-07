@@ -1,10 +1,12 @@
 import { useContext } from "react"
 import { useHooksMediaQuery } from "../../data/hooks/media-query"
 import { ContextMain } from "../../data/context/main"
+import { useNavigate } from "react-router-dom"
 
 const HomeSection1 = () => {
 	const context = useContext(ContextMain)
 	const desktopView = useHooksMediaQuery(`(min-width:768px)`)
+	const navigate = useNavigate()
 
 	let imgUrl = ""
 	if (context.theme.current === "theme-default")
@@ -14,7 +16,7 @@ const HomeSection1 = () => {
 	else imgUrl = desktopView ? "/theme-relax/hero-desktop.jpg" : "/theme-relax/hero-mobile.jpg"
 
 	const twClasses = {
-		container: `z-[-100] relative w-full h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color`,
+		container: `relative w-full h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color opacity-90`,
 		heading: `text-2xl font-light text-primary-main-contrast`,
 		title: `text-5xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
 		btnAbout: `w-full px-6 py-3 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,
@@ -27,7 +29,7 @@ const HomeSection1 = () => {
 				id="section-1"
 				className={twClasses.container}
 			>
-				<img src={imgUrl} className="z-[-90] absolute top-0 left-0 h-full w-full object-cover opacity-30" />
+				
 				{context.theme.current === "theme-default" || context.theme.current === "theme-earth" ? (
 					<img src="/logo/logo-white-sm.png" />
 				) : (
@@ -41,7 +43,7 @@ const HomeSection1 = () => {
 						</h1>
 						<div id="btn-group" className="pt-8 flex flex-row space-x-2">
 							<button className={twClasses.btnAbout}>About</button>
-							<button className={twClasses.btnDemo}>Demo</button>
+							<button className={twClasses.btnDemo} onClick={()=>navigate("/app")}>Demo</button>
 						</div>
 				</div>
 			</div>

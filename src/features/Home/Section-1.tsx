@@ -14,7 +14,7 @@ const HomeSection1 = () => {
 	else imgUrl = desktopView ? "/theme-relax/hero-desktop.jpg" : "/theme-relax/hero-mobile.jpg"
 
 	const twClasses = {
-		container: `relative w-full px-12 py-60 flex flex-col space-y-5 items-center`,
+		container: `z-[-100] relative w-full h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color`,
 		heading: `text-2xl font-light text-primary-main-contrast`,
 		title: `text-5xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
 		btnAbout: `w-full px-6 py-3 rounded-md border border-primary-contrast-color text-md text-primary-main-contrast`,
@@ -26,25 +26,23 @@ const HomeSection1 = () => {
 			<div
 				id="section-1"
 				className={twClasses.container}
-				style={{
-					background: `linear-gradient(180deg, rgba(var(--color-primary-main),70%), rgba(var(--color-primary-dark),70%)), url(${imgUrl})`,
-					backgroundRepeat: "no-repeat",
-					backgroundSize: "cover"
-				}}
 			>
+				<img src={imgUrl} className="z-[-90] absolute top-0 left-0 h-full w-full object-cover opacity-30" />
 				{context.theme.current === "theme-default" || context.theme.current === "theme-earth" ? (
 					<img src="/logo/logo-white-sm.png" />
 				) : (
 					<img src="/logo/logo-black-sm.png	" />
 				)}
-				<h1 className="mt-24 flex flex-col items-center space-y-2">
-					<span className={twClasses.heading}>Take control of</span>
-					<span className={twClasses.heading}>your day with</span>
-					<span className={twClasses.title}>Fancydo</span>
-				</h1>
-				<div id="btn-group" className="pt-8 flex flex-row space-x-2">
-					<button className={twClasses.btnAbout}>About</button>
-					<button className={twClasses.btnDemo}>Demo</button>
+				<div>
+						<h1 className="flex flex-col items-center space-y-2">
+							<span className={twClasses.heading}>Take control of</span>
+							<span className={twClasses.heading}>your day with</span>
+							<span className={twClasses.title}>Fancydo</span>
+						</h1>
+						<div id="btn-group" className="pt-8 flex flex-row space-x-2">
+							<button className={twClasses.btnAbout}>About</button>
+							<button className={twClasses.btnDemo}>Demo</button>
+						</div>
 				</div>
 			</div>
 		</>

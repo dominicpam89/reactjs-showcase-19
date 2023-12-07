@@ -17,8 +17,8 @@ const HomeSection1 = () => {
 		container: `z-[-100] relative w-full h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color`,
 		heading: `text-2xl font-light text-primary-main-contrast`,
 		title: `text-5xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
-		btnAbout: `w-full px-6 py-3 rounded-md border border-primary-contrast-color text-md text-primary-main-contrast`,
-		btnDemo: `w-full px-6 py-3 rounded-md bg-gradient-to-br from-primary-main-color to-danger-dark-color text-md text-primary-main-contrast`,
+		btnAbout: `w-full px-6 py-3 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,
+		btnDemo: `w-full px-6 py-3 rounded-md bg-gradient-to-br from-primary-main-color to-danger-main-color text-md text-primary-main-contrast`,
 	}
 
 	return (

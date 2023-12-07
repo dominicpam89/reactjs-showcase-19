@@ -6,7 +6,6 @@ import { BsBullseye } from "react-icons/bs"
 import { BsCalendar2RangeFill } from "react-icons/bs"
 import { BsFillHddRackFill } from "react-icons/bs"
 
-
 const HomeSection2 = () => {
 	const context = useContext(ContextMain)
 	const desktopView = useHooksMediaQuery(`(min-width:768px)`)
@@ -14,37 +13,39 @@ const HomeSection2 = () => {
 	desktopView
 
 	const twClasses = {
-		container: `w-full px-16 py-24 flex flex-col space-y-5 items-center justify-center bg-gradient-to-b from-primary-dark-color to-primary-main-color text-primary-main-contrast`,
-		
+		container: `w-full px-16 py-12 h-screen flex flex-col items-center justify-around bg-primary-main-contrast`,
+		card: `flex flex-col space-y-4 items-center px-12 text-center`,
+		icon: { className: "w-14 h-auto text-primary-main-color"},
+		cardHeading: `font-extrabold text-xl text-primary-main-color uppercase`,
+		cardContent: `font-normal text-sm tracking-wide text-primary-main-color`,
 	}
 
 	return (
 		<>
-			<div
-				id="section-2"
-				className={twClasses.container}
-			>
-				<div id="column-group" className="">
-						<IconContext.Provider value={{}}>
-							<BsBullseye />
-						</IconContext.Provider>
-						<h2>Custom challenge creation</h2>
-						<p>Set the rules, define your own pace</p>
-				</div>		
-				<div id="column-group" className="">
-						<IconContext.Provider value={{}}>
-							<BsCalendar2RangeFill />
-						</IconContext.Provider>
-						<h2>Track the progress</h2>
-						<p>See your growth over time with our analytics tools</p>
-				</div>		
-				<div id="column-group" className="">
-						<IconContext.Provider value={{}}>
-							<BsFillHddRackFill />
-						</IconContext.Provider>
-						<h2>Community Support</h2>
-						<p>Join our community and get motivated by peers</p>
-				</div>		
+			<div id="section-2" className={twClasses.container}>
+				<div id="card" className={twClasses.card}>
+					<IconContext.Provider value={twClasses.icon}>
+						<BsBullseye />
+					</IconContext.Provider>
+					<div id="text" className="flex flex-col space-y-2">
+						<h2 className={twClasses.cardHeading}>Customizable</h2>
+						<p className={twClasses.cardContent}>Set the rules, define your own pace</p>
+					</div>
+				</div>
+				<div id="card" className={twClasses.card}>
+					<IconContext.Provider value={twClasses.icon}>
+						<BsCalendar2RangeFill />
+					</IconContext.Provider>
+					<h2 className={twClasses.cardHeading}>Track the progress</h2>
+					<p className={twClasses.cardContent}>See your growth over time with our analytics tools</p>
+				</div>
+				<div id="card" className={twClasses.card}>
+					<IconContext.Provider value={twClasses.icon}>
+						<BsFillHddRackFill />
+					</IconContext.Provider>
+					<h2 className={twClasses.cardHeading}>Community Support</h2>
+					<p className={twClasses.cardContent}>Join our community and get motivated by peers</p>
+				</div>
 			</div>
 		</>
 	)

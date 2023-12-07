@@ -1,25 +1,19 @@
 import { createContext } from "react"
-import { useHooksContextMain } from "../hooks/context"
+import { useHooksContextMain, useHooksModal } from "../hooks/context"
+import { ContextTheme } from "./theme"
+import { ContextModal } from "./modal"
 
-export type TypeThemeSelection = "theme-default"|"theme-relax"|"theme-earth"
-export type TypeContext = {
-  theme:{
-    current: TypeThemeSelection,
-    changeTheme: (selectedTheme:TypeThemeSelection)=>void
-  }
-}
-
-export const ContextMain = createContext<TypeContext>({
-  theme:{
-    current: "theme-default",
-    changeTheme: (selectedTheme)=>{selectedTheme}
-  }
+export const ContextMain = createContext({
+  theme: ContextTheme,
+  modal: ContextModal
 })
 
 const ContextMainProvider:React.FC<{children: React.ReactNode}> = ({children})=>{
     const theme = useHooksContextMain()
+    const modal = useHooksModal()
     return <ContextMain.Provider value={{
-      theme
+      theme,
+      modal,
     }}>
       {children}
     </ContextMain.Provider>

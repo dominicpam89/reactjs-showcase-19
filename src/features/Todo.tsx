@@ -1,14 +1,16 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { ContextMain } from "../data/context/main"
 import { Link } from "react-router-dom"
-import TodoItem from "./Todo/Item"
 import { todoDummy } from "../data/todoDummy"
+import TodoItem from "./Todo/Item"
+import TodoForm from "./Todo/Form"
 
 type Select = "active" | "completed" | "failed"
 const selectedTab: Select[] = ["active", "completed", "failed"]
 
 const TodoPage = () => {
+	const context = useContext(ContextMain)
 	const [select, setSelect] = useState<Select>("active")
-
 	const twClasses = {
 		btnAddTodo: ``,
 		btnSelectContainer: ``,
@@ -17,6 +19,7 @@ const TodoPage = () => {
 
 	return (
 		<>
+			{context.modal.visibility && <TodoForm />}
 			<div
 				id="container"
 				className="p-10 w-full min-h-screen flex flex-col space-y-14 items-center bg-primary-dark-color"
@@ -27,7 +30,7 @@ const TodoPage = () => {
 					</Link>
 				</div>
 				<div id="app" className="w-full p-6 flex flex-col space-y-6 bg-primary-main-color">
-          <button className="w-full py-2 rounded-lg border border-info-main-color text-info-main-contrast text-sm">Add Todo</button>
+          <button className="w-full py-2 rounded-lg border border-info-main-color text-info-main-contrast text-sm" onClick={context.modal.show}>Add Todo</button>
 					<div id="button-group" className="w-full flex space-around">
 						{selectedTab.map((tab) => {
 							return (

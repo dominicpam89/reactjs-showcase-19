@@ -2,7 +2,11 @@ import { useContext } from "react"
 import { ContextMain } from "../../data/context/main"
 import { useNavigate } from "react-router-dom"
 
-const HomeSection1 = () => {
+type Props = {
+	onAboutClick: ()=>void
+}
+
+const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 	const context = useContext(ContextMain)
 	const logoSrc =
 		(context.theme.current === "theme-default" ||
@@ -30,7 +34,7 @@ const HomeSection1 = () => {
 						<span className={twClasses.title}>Fancydo</span>
 					</h1>
 					<div id="btn-group" className="pt-8 flex flex-row space-x-2">
-						<button className={twClasses.btnAbout}>About</button>
+						<button className={twClasses.btnAbout} onClick={onAboutClick}>About</button>
 						<button
 							className={twClasses.btnDemo}
 							onClick={() => navigate("/app")}

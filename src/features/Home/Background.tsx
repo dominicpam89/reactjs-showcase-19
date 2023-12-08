@@ -19,7 +19,6 @@ const HomeBackground = () => {
 				<filter id="noiseFilter">
 					<feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
 				</filter>
-
 				<rect width="1000%" height="1000%" filter="url(#noiseFilter)" />
 			</svg>
 			<img src={imgUrl} className="-z-50 fixed top-0 left-0 h-[120%] w-full object-cover" />

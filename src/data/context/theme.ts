@@ -1,6 +1,6 @@
-import { TypeThemeSelection } from "../types/context"
+import { TypeContextTheme } from "../types/context"
 
-export const ContextTheme = {
+export const ContextTheme:TypeContextTheme = {
 	current: "theme-default",
-	changeTheme: (selectedTheme:TypeThemeSelection) => { selectedTheme }
+	changeTheme: (selectedTheme) => { selectedTheme }
 }

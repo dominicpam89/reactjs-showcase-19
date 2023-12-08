@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom"
 
 const HomeSection1 = () => {
 	const context = useContext(ContextMain)
+	const logoSrc =
+		(context.theme.current === "theme-default" ||
+		context.theme.current === "theme-earth")
+			? "/logo/logo-white-sm.png"
+			: "/logo/logo-black-sm.png"
 	const navigate = useNavigate()
 
 	const twClasses = {
@@ -16,26 +21,23 @@ const HomeSection1 = () => {
 
 	return (
 		<>
-			<div
-				id="section-1"
-				className={twClasses.container}
-			>
-				
-				{context.theme.current === "theme-default" || context.theme.current === "theme-earth" ? (
-					<img src="/logo/logo-white-sm.png" />
-				) : (
-					<img src="/logo/logo-black-sm.png	" />
-				)}
+			<div id="section-1" className={twClasses.container}>
+				<img src={logoSrc} />
 				<div>
-						<h1 className="flex flex-col items-center space-y-2">
-							<span className={twClasses.heading}>Take control of</span>
-							<span className={twClasses.heading}>your day with</span>
-							<span className={twClasses.title}>Fancydo</span>
-						</h1>
-						<div id="btn-group" className="pt-8 flex flex-row space-x-2">
-							<button className={twClasses.btnAbout}>About</button>
-							<button className={twClasses.btnDemo} onClick={()=>navigate("/app")}>Demo</button>
-						</div>
+					<h1 className="flex flex-col items-center space-y-2">
+						<span className={twClasses.heading}>Take control of</span>
+						<span className={twClasses.heading}>your day with</span>
+						<span className={twClasses.title}>Fancydo</span>
+					</h1>
+					<div id="btn-group" className="pt-8 flex flex-row space-x-2">
+						<button className={twClasses.btnAbout}>About</button>
+						<button
+							className={twClasses.btnDemo}
+							onClick={() => navigate("/app")}
+						>
+							Demo
+						</button>
+					</div>
 				</div>
 			</div>
 		</>

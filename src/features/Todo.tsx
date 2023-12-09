@@ -46,22 +46,21 @@ const Todos = () => {
 
 export default function TodoPage() {
 	const context = useContext(ContextMain)
+	const twClasses = {
+		container:
+			"p-10 w-full min-h-screen flex flex-col space-y-14 items-center bg-primary-dark-color",
+		app: "w-full p-6 flex flex-col space-y-6 bg-primary-main-color",
+	}
 	return (
 		<>
 			{context.modal.visibility && (
-				<UIModal>
+				<UIModal centered={true} padding="md">
 					<TodoForm />
 				</UIModal>
 			)}
-			<div
-				id="container"
-				className="p-10 w-full min-h-screen flex flex-col space-y-14 items-center bg-primary-dark-color"
-			>
+			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />
-				<div
-					id="app"
-					className="w-full p-6 flex flex-col space-y-6 bg-primary-main-color"
-				>
+				<div id="app" className={twClasses.app}>
 					<BtnModal />
 					<Tabs />
 					<Todos />

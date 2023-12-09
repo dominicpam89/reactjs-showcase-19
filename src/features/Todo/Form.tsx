@@ -1,19 +1,31 @@
-import { useContext } from "react"
-import { ContextMain } from "../../data/context/main";
-import UIModal from "../../UI/Modal";
+import { useForm, FieldErrors, FieldValues } from "react-hook-form"
+import UIInputField from "../../UI/Form/InputField"
 
 const TodoForm = () => {
-  const context = useContext(ContextMain)
-  return <>
-    <UIModal>
-      <div id="container" className="p-24 flex flex-col items-center justify-center">
-        <button className="px-4 py-2 bg-black text-white text-sm font-normal" onClick={e=>{
-          e.stopPropagation()
-          context.modal.hide()
-        }}>Close</button>
-      </div>
-    </UIModal>
-  </>
+	const { register, handleSubmit } = useForm({
+		defaultValues: {
+			tag: "",
+			details: "",
+			dateFinished: "",
+			images: [],
+		},
+	})
+	const onSubmit = (data:FieldValues)=>{
+		console.log(data)
+	}
+	const onInvalid= (errors:FieldErrors)=>{
+		console.log(errors)
+	}
+	return (
+		<form
+			className="w-full h-full p-10 flex flex-col space-y-4 bg-primary-main-contrast/90"
+			onClick={(e) => e.stopPropagation()}
+			onSubmit={handleSubmit(onSubmit,onInvalid)}
+		>
+			<UIInputField id="tag" label="Todo Title" register={register("tag")} />
+			<UIInputField id="details" label="Description" />
+		</form>
+	)
 }
- 
-export default TodoForm;
+
+export default TodoForm

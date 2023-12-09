@@ -1,11 +1,23 @@
+import { UseFormRegisterReturn } from "react-hook-form"
 import { TypeCommonPadding } from "./common"
-
-export type TypePropsChildren = {
-  children: React.ReactNode
-}
 
 export type TypeModalProps = {
 	children: React.ReactNode
 	centered?: boolean
 	padding?: TypeCommonPadding
+}
+
+interface TypeInput{
+	id: string,
+	label: string,
+	error?: string | undefined
+	register?: UseFormRegisterReturn
+}
+
+export interface TypeInputField extends TypeInput{
+	type?: string
+}
+
+export interface TypeInputFieldArea extends TypeInput {
+	rows?: number
 }

@@ -1,5 +1,6 @@
 import { useForm, FieldErrors, FieldValues } from "react-hook-form"
 import UIInputField from "../../UI/Form/InputField"
+import UIInputFieldArea from "../../UI/Form/InputFieldArea"
 
 const TodoForm = () => {
 	const { register, handleSubmit } = useForm({
@@ -18,12 +19,12 @@ const TodoForm = () => {
 	}
 	return (
 		<form
-			className="w-full h-full p-10 flex flex-col space-y-4 bg-primary-main-contrast/90"
+			className="w-full h-full p-10 flex flex-col space-y-4 bg-primary-main-contrast"
 			onClick={(e) => e.stopPropagation()}
 			onSubmit={handleSubmit(onSubmit,onInvalid)}
 		>
 			<UIInputField id="tag" label="Todo Title" register={register("tag")} />
-			<UIInputField id="details" label="Description" />
+			<UIInputFieldArea id="description" label="Description" rows={4} />
 		</form>
 	)
 }

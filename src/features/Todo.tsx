@@ -5,7 +5,6 @@ import TodoBrand from "./Todo/Brand"
 import TodoItem from "./Todo/Item"
 import TodoForm from "./Todo/Form"
 import TodoTab from "./Todo/Tab"
-import UIModal from "../UI/Modal"
 
 type Select = "active" | "completed" | "failed"
 const selectedTab: Select[] = ["active", "completed", "failed"]
@@ -53,11 +52,7 @@ export default function TodoPage() {
 	}
 	return (
 		<>
-			{context.modal.visibility && (
-				<UIModal centered={true} padding="md">
-					<TodoForm />
-				</UIModal>
-			)}
+			{context.modal.visibility && <TodoForm />}
 			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />
 				<div id="app" className={twClasses.app}>

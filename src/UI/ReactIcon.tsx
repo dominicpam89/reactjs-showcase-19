@@ -5,8 +5,12 @@ type Props = {
 	icon: React.ReactNode
 }
 
-const UIReactIcon: React.FC<Props> = ({icon,value}) => {
-	return <IconContext.Provider value={{ ...value }}>{icon}</IconContext.Provider>
+const UIReactIcon: React.FC<Props> = ({ icon, value }) => {
+	return (
+			<IconContext.Provider value={{ ...value }}>
+				{icon}
+			</IconContext.Provider>
+	)
 }
 
 export default UIReactIcon

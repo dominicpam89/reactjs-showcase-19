@@ -3,7 +3,7 @@ import { utilsTodoFormDefaultValues as defaultValues } from "../../data/utils/to
 import UIModal from "../../UI/Modal"
 import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
-import UIInputDate from "../../UI/Form/InputDate"
+import UIInputDateStd from "../../UI/Form/InputDateStd"
 
 const TodoForm = () => {
 	const { register, handleSubmit } = useForm({ defaultValues })
@@ -25,8 +25,9 @@ const TodoForm = () => {
 					label="Todo Title"
 					register={register("tag")}
 				/>
-				<UIInputFieldArea id="description" label="Description" rows={5} />
-				<UIInputDate />
+				<UIInputFieldArea id="description" label="Description" rows={5} register={register("details")} />
+				<UIInputDateStd id="date" label="date" register={register("dateFinished")} />
+				
 			</form>
 		</UIModal>
 	)

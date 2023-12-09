@@ -7,7 +7,7 @@ export type TypeModalProps = {
 	padding?: TypeCommonPadding
 }
 
-interface TypeInput{
+export interface TypeInput{
 	id: string,
 	label: string,
 	error?: string | undefined

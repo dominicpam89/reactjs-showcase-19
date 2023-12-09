@@ -1,7 +1,6 @@
 import { TypeInputFieldArea } from "../../data/types/Props"
 import UIInputHelperText from "./HelperText"
 
-
 const UIInputFieldArea:React.FC<TypeInputFieldArea> = ({id, label, rows=3, register=undefined, error=undefined}) => {
 	return (
 		<>

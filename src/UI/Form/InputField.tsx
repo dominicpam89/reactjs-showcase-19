@@ -1,7 +1,7 @@
 import { TypeInputField } from "../../data/types/Props"
 import UIInputHelperText from "./HelperText"
 
-const UIInputField:React.FC<TypeInputField> = ({id,label,type="text",register, error=undefined}) => {
+const UIInputField:React.FC<TypeInputField> = ({id,label,type="text",register=undefined, error=undefined}) => {
 	return (
 		<>
 			<div id="form-input-group" className="relative">

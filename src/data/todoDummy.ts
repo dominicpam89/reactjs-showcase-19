@@ -1,4 +1,4 @@
-import { TypeTodo } from "./types/Todo"
+import { TypeTodo } from "./types/query"
 
 export const todoDummy:TypeTodo[] = [
 	{ image: "image", information: { todo: "info1", date: new Date() }, status: "active" },

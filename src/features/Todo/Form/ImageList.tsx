@@ -16,12 +16,15 @@ const TodoImageList = () => {
 			: imagesRelax
 	const { data, error, isError, isLoading } = usedHook
 	if (data && !isLoading)
-		return data.map((image) => (
-			<TodoImage key={image.id} imageFile={image.name} theme={theme} />
-		))
+		return <div  className="grid grid-cols-5 gap-x-2 gap-y-2">
+			{data.map((image) => (
+					<TodoImage key={image.id} imageFile={image.name} theme={theme} className="w-[24px]" />
+			))}
+		</div>
 	else if (isLoading) {
+		return <p>loading...</p>
 	} else if (isError) {
-		error
+		return <p>{error.message}</p>
 	}
 }
 

@@ -4,6 +4,7 @@ import UIModal from "../../UI/Modal"
 import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
 import UIInputDateStd from "../../UI/Form/InputDateStd"
+import TodoImageList from "./Form/ImageList"
 
 const TodoForm = () => {
 	const { register, handleSubmit } = useForm({ defaultValues })
@@ -27,7 +28,7 @@ const TodoForm = () => {
 				/>
 				<UIInputFieldArea id="description" label="Description" rows={5} register={register("details")} />
 				<UIInputDateStd id="date" label="date" register={register("dateFinished")} />
-				
+				<TodoImageList />
 			</form>
 		</UIModal>
 	)

@@ -3,7 +3,7 @@ import { getImagesThemeDefault, getImagesThemeEarth, getImagesThemeRelax } from 
 
 export const useHooksGetImages = () => {
 	const imagesDefault = useQuery({
-		queryKey: ["activity-images", "theme-default"],
+		queryKey: ["activity-images", "themwe-default"],
 		queryFn: getImagesThemeDefault,
 	})
 

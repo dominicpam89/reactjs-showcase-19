@@ -1,6 +1,11 @@
-import { TypeTodoFormDefaultValues } from "../types/useForm"
+interface TypeTodoFormDefaultValues {
+  tag: string
+	details: string
+	dateFinished: Date
+	images: string[]
+}
 
-export const defaultValues:TypeTodoFormDefaultValues = {
+export const utilsTodoFormDefaultValues:TypeTodoFormDefaultValues = {
   tag: "",
   details: "",
   dateFinished: new Date(),

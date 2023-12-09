@@ -1,15 +1,11 @@
 import { useForm, FieldErrors, FieldValues } from "react-hook-form"
 import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
+import { utilsTodoFormDefaultValues as defaultValues } from "../../data/utils/todoForm"
 
 const TodoForm = () => {
 	const { register, handleSubmit } = useForm({
-		defaultValues: {
-			tag: "",
-			details: "",
-			dateFinished: "",
-			images: [],
-		},
+		defaultValues
 	})
 	const onSubmit = (data:FieldValues)=>{
 		console.log(data)

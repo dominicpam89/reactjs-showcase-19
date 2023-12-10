@@ -3,7 +3,11 @@ import { ContextMain } from "../../../data/context/main"
 import TodoImage from "./Image"
 import { useHooksGetImages } from "../../../data/hooks/query"
 
-const TodoImageList = () => {
+type Props = {
+	onImageSelect: (imageName:string)=>void,
+}
+
+const TodoImageList:React.FC<Props> = ({onImageSelect}) => {
 	const { imagesDefault, imagesEarth, imagesRelax } = useHooksGetImages()
 	const {
 		theme: { current: theme },
@@ -15,12 +19,13 @@ const TodoImageList = () => {
 			? imagesEarth
 			: imagesRelax
 	const { data, error, isError, isLoading } = usedHook
-	if (data && !isLoading)
+	if (data && !isLoading){
 		return <div  className="grid grid-cols-5 gap-x-2 gap-y-2">
 			{data.map((image) => (
-					<TodoImage key={image.id} imageFile={image.name} theme={theme} className="w-[24px]" />
+					<TodoImage key={image.id} imageFile={image.name} theme={theme} className="w-[24px]" onClick={()=>onImageSelect(image.name)} />
 			))}
 		</div>
+	}
 	else if (isLoading) {
 		return <p>loading...</p>
 	} else if (isError) {

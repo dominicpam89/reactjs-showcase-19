@@ -1,13 +1,16 @@
 import { useForm, FieldErrors, FieldValues } from "react-hook-form"
-import { utilsTodoFormDefaultValues as defaultValues } from "../../data/utils/todoForm"
+// import { utilsTodoFormDefaultValues as defaultValues } from "../../data/utils/todoForm"
 import UIModal from "../../UI/Modal"
 import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
 import UIInputDateStd from "../../UI/Form/InputDateStd"
 import TodoImageList from "./Form/ImageList"
+import { useState } from "react"
 
 const TodoForm = () => {
-	const { register, handleSubmit } = useForm({ defaultValues })
+	const { register, handleSubmit } = useForm()
+	const [ imageChoice, setImageChoice ] = useState<string|null>(null)
+	console.log(imageChoice)
 	const onSubmit = (data: FieldValues) => {
 		console.log(data)
 	}
@@ -28,7 +31,10 @@ const TodoForm = () => {
 				/>
 				<UIInputFieldArea id="description" label="Description" rows={5} register={register("details")} />
 				<UIInputDateStd id="date" label="date" register={register("dateFinished")} />
-				<TodoImageList />
+				<TodoImageList onImageSelect={(imageName)=>setImageChoice(imageName)} />
+				<div id="form-action" className="w-full flex flex-row space-x-2">
+					<button type="submit">submit</button>
+				</div>
 			</form>
 		</UIModal>
 	)

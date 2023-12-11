@@ -19,5 +19,7 @@ export interface TypeInputField extends TypeInput{
 }
 
 export interface TypeInputFieldArea extends TypeInput {
-	rows?: number
+	rows?: number,
+	inputState: string,
+	maxLength?: number|undefined,
 }

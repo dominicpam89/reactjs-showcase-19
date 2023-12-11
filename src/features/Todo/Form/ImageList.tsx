@@ -1,40 +1,68 @@
-import { useContext } from "react"
-import { ContextMain } from "../../../data/context/main"
-import { useHooksGetImages } from "../../../data/hooks/query"
-import TodoImage from "./Image"
+import { useHooksGetImageByTheme } from "../../../data/hooks/query"
 import { LoaderDefault } from "../../../UI/Loader"
+import { Variants, motion } from "framer-motion"
+import TodoImage from "./Image"
+import { useState } from "react"
 
 type Props = {
 	onImageSelect: (imageName: string) => void
 }
 
+type MotionVar = {
+	imageListContainer: Variants
+	imageContainer: Variants
+
+}
+
+const motionVar:MotionVar= {
+	imageListContainer: {
+		hidden: {},
+		visible: {},
+	},
+	imageContainer: {
+		hidden: { opacity: 0 },
+		visible: { opacity: 1 },
+	},
+}
+
+
 const TodoImageList: React.FC<Props> = ({ onImageSelect }) => {
-	const { imagesDefault, imagesEarth, imagesRelax } = useHooksGetImages()
-	const {
-		theme: { current: theme },
-	} = useContext(ContextMain)
-	let usedHook =
-		theme === "theme-default"
-			? imagesDefault
-			: theme === "theme-earth"
-			? imagesEarth
-			: imagesRelax
-	const { data, error, isError, isLoading } = usedHook
+	const [selectedImage, setSelectedImage] = useState("")
+	const { data, error, isError, isLoading } = useHooksGetImageByTheme()
+
 	if (data && !isLoading) {
 		return (
 			<div className="flex flex-col space-y-2">
 				<h4 className="text-sm text-primary-main-color/50">Select image</h4>
-				<div className="grid grid-cols-5 gap-x-2 gap-y-2">
+				<motion.div
+					id="imageList-container"
+					variants={motionVar.imageListContainer}
+					initial="hidden"
+					animate="visible"
+					exit="hidden"
+					transition={{ staggerChildren: 0.1 }}
+					className="grid grid-cols-4 gap-x-2 gap-y-2"
+				>
 					{data.map((image) => (
-						<TodoImage
+						<motion.div
+							id="imageContainer"
 							key={image.id}
-							imageFile={image.name}
-							theme={theme}
-							className="w-[40px]"
-							onClick={() => onImageSelect(image.name)}
-						/>
+							variants={motionVar.imageContainer}
+							whileTap={{ rotateX: 180 }}
+							className="relative"
+							onClick={() => {
+								onImageSelect(image.name)
+								setSelectedImage(image.id)
+							}}
+						>
+							<TodoImage
+								imageFile={image.name}
+								imageId={image.id}
+								selectedImage={selectedImage}
+							/>
+						</motion.div>
 					))}
-				</div>
+				</motion.div>
 			</div>
 		)
 	}

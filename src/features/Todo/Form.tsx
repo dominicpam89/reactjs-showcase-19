@@ -5,16 +5,13 @@ import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
 import UIInputDateStd from "../../UI/Form/InputDateStd"
 import TodoImageList from "./Form/ImageList"
-import { useState } from "react"
 import ButtonCancel from "./Form/ButtonCancel"
 import ButtonSubmit from "./Form/ButtonSubmit"
 
 const TodoForm = () => {
-	const { register, handleSubmit, reset } = useForm()
-	const [imageChoice, setImageChoice] = useState<string | null>(null)
+	const { register, handleSubmit, reset, setValue } = useForm()
 	const onSubmit = (data: FieldValues) => {
-		const _data = { ...data, image: imageChoice }
-		console.log(_data)
+		console.log(data)
 	}
 	const onInvalid = (errors: FieldErrors) => {
 		console.log(errors)
@@ -42,8 +39,9 @@ const TodoForm = () => {
 					label="Target Finish"
 					register={register("dateFinished")}
 				/>
+				<input type="text" className="hidden" {...register("image")} />
 				<TodoImageList
-					onImageSelect={(imageName) => setImageChoice(imageName)}
+					onImageSelect={(imageName) => setValue("image",imageName)}
 				/>
 				<div
 					id="form-action"

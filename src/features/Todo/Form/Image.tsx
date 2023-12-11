@@ -25,7 +25,7 @@ const TodoImage: React.FC<PropsImage> = ({
 			}} src={urlImage} alt={imageName} className="w-full rounded-full" />
 			{selectedImage === imageId && (
 				<motion.div
-					className="absolute top-0 left-0 w-full h-full rounded-full outline outline-3 outline-offset-2 outline-info-main-color/50 bg-info-main-color/50"
+					className="absolute top-0 left-0 w-full h-full rounded-full outline outline-3 outline-offset-2 outline-danger-main-color/50 bg-danger-main-color/50"
 					variants={{
 						hidden: {opacity: 0, scale: 0},
 						visible: {opacity: 1, scale: "100%"}

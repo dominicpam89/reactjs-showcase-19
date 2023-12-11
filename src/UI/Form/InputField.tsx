@@ -17,7 +17,7 @@ const UIInputField:React.FC<TypeInputField> = ({id,label,type="text",register=un
 				<label
 					htmlFor={id}
 					className="absolute top-2 origin-[0] px-2
-            text-sm text-primary-main-color duration-300 transform -translate-y-4 scale-75 
+            text-sm text-primary-main-color/50 duration-300 transform -translate-y-4 scale-75 
             bg-primary-main-contrast
             peer-focus:px-2 peer-focus:text-primary-main-color  
             peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 

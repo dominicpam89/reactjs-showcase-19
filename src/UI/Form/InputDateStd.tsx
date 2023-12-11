@@ -12,7 +12,7 @@ const UIInputDateStd:React.FC<TypeInput> = ({id, label, register=undefined, erro
 
 	return (
 		<div className="flex flex-col space-y-1">
-			<label htmlFor={id} className="hidden">{label}</label>
+			<label htmlFor={id} className="text-sm text-primary-main-color/50">{label}</label>
 			<input
 				id={id}
 				type="date"

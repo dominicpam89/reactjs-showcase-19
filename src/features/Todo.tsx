@@ -5,6 +5,7 @@ import TodoBrand from "./Todo/Brand"
 import TodoItem from "./Todo/Item"
 import TodoForm from "./Todo/Form"
 import TodoTab from "./Todo/Tab"
+import { AnimatePresence } from "framer-motion"
 
 type Select = "active" | "completed" | "failed"
 const selectedTab: Select[] = ["active", "completed", "failed"]
@@ -52,7 +53,7 @@ export default function TodoPage() {
 	}
 	return (
 		<>
-			{context.modal.visibility && <TodoForm />}
+			<AnimatePresence>{context.modal.visibility && <TodoForm />}</AnimatePresence>
 			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />
 				<div id="app" className={twClasses.app}>

@@ -16,7 +16,7 @@ const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 	const navigate = useNavigate()
 
 	const twClasses = {
-		container: `relative w-full h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color opacity-90`,
+		container: `relative w-full min-h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color opacity-90`,
 		heading: `text-2xl font-light text-primary-main-contrast`,
 		title: `text-5xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
 		btnAbout: `w-full px-6 py-3 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,

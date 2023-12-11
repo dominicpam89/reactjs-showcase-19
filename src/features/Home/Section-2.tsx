@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = ({ icon = null, heading, subheading }) => {
 
 export default function HomeSection2() {
 	const twClasses = {
-		container: `w-full px-16 py-12 h-screen flex flex-col items-center justify-around bg-primary-main-contrast opacity-90`,
+		container: `w-full px-16 py-12 min-h-screen flex flex-col items-center justify-around space-y-8 bg-primary-main-contrast opacity-90`,
 	}
 
 	return (

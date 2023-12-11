@@ -22,7 +22,7 @@ const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 		title: `text-4xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
 		btnAbout: `w-full px-4 py-2 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,
 		btnDemo: `w-full px-4 py-2 rounded-md bg-gradient-to-br from-primary-main-color to-danger-main-color text-md text-primary-main-contrast`,
-	}	
+	}
 
 	return (
 		<>

@@ -17,16 +17,17 @@ const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 
 	const twClasses = {
 		container: `relative w-full min-h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color opacity-90`,
-		heading: `text-2xl font-light text-primary-main-contrast`,
-		title: `text-5xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
-		btnAbout: `w-full px-6 py-3 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,
-		btnDemo: `w-full px-6 py-3 rounded-md bg-gradient-to-br from-primary-main-color to-danger-main-color text-md text-primary-main-contrast`,
-	}
+		logo: `w-auto h-24`,
+		heading: `text-xl font-light text-primary-main-contrast`,
+		title: `text-3xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
+		btnAbout: `w-full px-4 py-2 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,
+		btnDemo: `w-full px-4 py-2 rounded-md bg-gradient-to-br from-primary-main-color to-danger-main-color text-md text-primary-main-contrast`,
+	}	
 
 	return (
 		<>
 			<div id="section-1" className={twClasses.container}>
-				<img src={logoSrc} />
+				<img src={logoSrc} className={twClasses.logo} />
 				<div>
 					<h1 className="flex flex-col items-center space-y-2">
 						<span className={twClasses.heading}>Take control of</span>

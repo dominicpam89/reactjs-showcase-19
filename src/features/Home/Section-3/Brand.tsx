@@ -11,7 +11,7 @@ export default function Section3_Brand(){
 
 	const twClasses = {
 		container: `flex flex-row space-x-5 items-center justify-center`,
-		logo: `h-16 w-auto opacity-80`,
+		logo: `h-14 w-auto opacity-80`,
 		title: `text-3xl font-extrabold text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)] opacity-80`,
 	}
 

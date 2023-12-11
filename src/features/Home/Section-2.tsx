@@ -12,9 +12,9 @@ const Card: React.FC<CardProps> = ({ icon = null, heading, subheading }) => {
 	const twClasses = {
 		card: `flex flex-col space-y-4 items-center px-12 text-center`,
 		text: `flex flex-col space-y-2`,
-		icon: "w-14 h-auto text-primary-main-color",
-		heading: `font-extrabold text-xl text-primary-main-color uppercase`,
-		content: `font-normal text-sm tracking-wide text-primary-main-color`,
+		icon: "w-10 h-auto text-primary-main-color",
+		heading: `font-extrabold text-md text-primary-main-color uppercase`,
+		content: `font-normal text-xs tracking-wide text-primary-main-color`,
 	}
 
 	return (

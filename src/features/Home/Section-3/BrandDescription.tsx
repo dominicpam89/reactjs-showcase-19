@@ -10,7 +10,7 @@ export default function Section3_BrandDescription() {
 	const context = useContext(ContextMain)
 	const descriptionFont =
 		context.theme.current === "theme-relax" ? "font-medium" : "font-thin"
-	const twClass = `${descriptionFont} py-2 text-sm text-primary-main-contrast text-justify hyphens-auto break-words leading-6`
+	const twClass = `${descriptionFont} py-2 text-xs text-primary-main-contrast text-justify hyphens-auto break-words leading-6`
 	return (
 		<p className={twClass}>
 			Fancydo is DominicPam's showcase built with <HW>SOLID principle</HW> in

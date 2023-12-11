@@ -8,7 +8,7 @@ type TypeRef = React.LegacyRef<HTMLDivElement> | undefined
 
 const HomeSection3 = React.forwardRef((_,ref:TypeRef) => {
 	const twClasses = {
-		container: `w-full px-16 py-24 flex flex-col items-center justify-around space-y-8 bg-gradient-to-t from-primary-main-color to-primary-dark-color opacity-90`,
+		container: `w-full px-16 py-24 flex flex-col items-center justify-around space-y-6 bg-gradient-to-t from-primary-main-color to-primary-dark-color opacity-90`,
 		card: `flex flex-col space-y-4 items-center`,
 		socialContainer: `w-full flex flex-row space-x-4 justify-around`,
 	}

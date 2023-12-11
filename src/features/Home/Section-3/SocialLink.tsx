@@ -10,7 +10,7 @@ const Section3_SocialLink:React.FC<SocialLinkProps> = (props) => {
 	const twClasses = {
 		container: `w-full flex flex-row space-x-4 justify-around`,
 		link: ``,
-		icon: `w-auto h-8 text-primary-main-contrast opacity-80`,
+		icon: `w-auto h-6 text-primary-main-contrast opacity-80`,
 	}
 	return (
 		<a {...props} className={twClasses.link}>

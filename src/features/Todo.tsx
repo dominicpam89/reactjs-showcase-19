@@ -5,6 +5,8 @@ import TodoBrand from "./Todo/Brand"
 import TodoItem from "./Todo/Item"
 import TodoForm from "./Todo/Form"
 import TodoTab from "./Todo/Tab"
+import UIReactIcon from "../UI/ReactIcon"
+import { BsFillHddStackFill } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
 
 type Select = "active" | "completed" | "failed"
@@ -14,10 +16,14 @@ const BtnModal = () => {
 	const context = useContext(ContextMain)
 	return (
 		<button
-			className="w-full py-2 rounded-lg border border-info-main-color text-info-main-contrast text-sm"
+			className="w-full py-4 rounded-lg text-info-main-color text-sm flex flex-row items-center justify-center space-x-2"
 			onClick={context.modal.show}
 		>
-			Add Todo
+			<UIReactIcon
+				icon={<BsFillHddStackFill />}
+				value={{ className: "h-4" }}
+			/>
+			<span>Add Todo</span>
 		</button>
 	)
 }

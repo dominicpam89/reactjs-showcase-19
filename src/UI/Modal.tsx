@@ -15,7 +15,7 @@ const UIModal: React.FC<TypeModalProps> = ({
 	const context = useContext(ContextMain)
 	const paddingVal = getPadding(padding)
 	const twClasses = {
-		modalContainer: `${context.theme.current} fixed top-0 left-0 z-[500] w-screen h-screen bg-gray-800/80 ${paddingVal}`,
+		modalContainer: `${context.theme.current} fixed top-0 left-0 z-[500] w-screen h-screen bg-gray-800/80 overflow-scroll ${paddingVal}`,
 		centeredContent: `flex w-full h-screen justify-center items-center`,
 	}
 	const centeredContent = (

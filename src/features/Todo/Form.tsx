@@ -22,7 +22,7 @@ const TodoForm = () => {
 	return (
 		<UIModal padding="sm">
 			<form
-				className="w-full p-10 flex flex-col space-y-5 bg-primary-main-contrast overflow-scroll"
+				className="w-full p-10 flex flex-col space-y-5 bg-primary-main-contrast"
 				onClick={(e) => e.stopPropagation()}
 				onSubmit={handleSubmit(onSubmit, onInvalid)}
 			>

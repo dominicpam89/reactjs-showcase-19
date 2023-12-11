@@ -1,8 +1,9 @@
 export type TypeTodo = {
+	id: number
+	created_at: Date
 	image: string
-	information: {
-		todo: string
-		date: Date
-	}
+	tag:string
+	details: string
+	dateFinished: Date
 	status: "active" | "completed" | "failed"
 }

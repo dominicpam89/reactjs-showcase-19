@@ -1,11 +1,12 @@
 import { useState, useContext } from "react"
 import { ContextMain } from "../data/context/main"
-import { todoDummy } from "../data/todoDummy"
+import { useHooksGetTodos } from "../data/hooks/query"
 import TodoBrand from "./Todo/Brand"
 import TodoItem from "./Todo/Item"
 import TodoForm from "./Todo/Form"
 import TodoTab from "./Todo/Tab"
 import UIReactIcon from "../UI/ReactIcon"
+import { LoaderDefault } from "../UI/Loader"
 import { BsFillHddStackFill } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
 
@@ -45,9 +46,12 @@ const Tabs = () => {
 }
 
 const Todos = () => {
-	return todoDummy.map((todo) => {
-		return <TodoItem key={todo.information.todo} todo={todo} />
+	const {data, error, isError, isLoading} = useHooksGetTodos()
+	if(!isLoading && data) return data.map((todo) => {
+		return <TodoItem key={todo.id} todo={todo} />
 	})
+	else if(isError) return <div>{error.message}</div>
+	else if(isLoading) return <div className="w-full py-8 flex justify-center"><LoaderDefault scene="dark" /></div>
 }
 
 export default function TodoPage() {

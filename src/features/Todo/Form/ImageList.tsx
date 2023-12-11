@@ -5,6 +5,7 @@ import TodoImage from "./Image"
 import { useState } from "react"
 
 type Props = {
+	inputError: string|undefined
 	onImageSelect: (imageName: string) => void
 }
 
@@ -26,14 +27,14 @@ const motionVar:MotionVar= {
 }
 
 
-const TodoImageList: React.FC<Props> = ({ onImageSelect }) => {
+const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 	const [selectedImage, setSelectedImage] = useState("")
 	const { data, error, isError, isLoading } = useHooksGetImageByTheme()
 
 	if (data && !isLoading) {
 		return (
 			<div className="flex flex-col space-y-2">
-				<h4 className="text-sm text-primary-main-color/50">Select image</h4>
+				<h4 className={`text-sm ${inputError?"text-danger-main-color/90":"text-primary-main-color/50"}`}>Select image</h4>
 				<motion.div
 					id="imageList-container"
 					variants={motionVar.imageListContainer}

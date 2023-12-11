@@ -23,3 +23,9 @@ export interface TypeInputFieldArea extends TypeInput {
 	inputState: string,
 	maxLength?: number|undefined,
 }
+
+export interface TypeInputImageSelect{
+	error?: string | undefined
+	register?: UseFormRegisterReturn
+	onImageSelect: (imageName:string)=>void
+}

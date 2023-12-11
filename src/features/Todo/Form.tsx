@@ -1,21 +1,27 @@
 import { useForm, FieldErrors, FieldValues } from "react-hook-form"
-// import { utilsTodoFormDefaultValues as defaultValues } from "../../data/utils/todoForm"
+import { utilsTodoFormDefaultValues as defaultValues } from "../../data/utils/todoForm"
 import UIModal from "../../UI/Modal"
 import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
 import UIInputDateStd from "../../UI/Form/InputDateStd"
-import TodoImageList from "./Form/ImageList"
+import UIInputImageSelect from "../../UI/Form/InputImageSelect"
 import ButtonCancel from "./Form/ButtonCancel"
 import ButtonSubmit from "./Form/ButtonSubmit"
 
 const TodoForm = () => {
-	const { register, handleSubmit, reset, setValue } = useForm()
+	const { register, handleSubmit, resetField, setValue, formState:{errors}, watch, trigger } = useForm({defaultValues, mode:"all"})
 	const onSubmit = (data: FieldValues) => {
 		console.log(data)
 	}
 	const onInvalid = (errors: FieldErrors) => {
 		console.log(errors)
 	}
+	const reset = ()=>{
+		resetField("tag")
+		resetField("details")
+		resetField("image")
+	}
+
 	return (
 		<UIModal padding="sm">
 			<form
@@ -26,22 +32,44 @@ const TodoForm = () => {
 				<UIInputField
 					id="tag"
 					label="Todo Title"
-					register={register("tag")}
+					register={register("tag", {
+						required:"Must be filled!",
+						pattern:{
+							value: /[A-Za-z]{3,15}/g,
+							message: "Must be more than 3 characters and less than 15"
+						},
+					})}
+					error={errors.tag?.message}
 				/>
 				<UIInputFieldArea
 					id="description"
 					label="Description"
 					rows={5}
-					register={register("details")}
+					register={register("details", {
+						validate:{
+							base: (val)=>val.length<=50||`Maximum characters is ${50}`
+						},
+					})}
+					error={errors.details?.message}
+					inputState={watch("details")}
+					maxLength={50}
 				/>
 				<UIInputDateStd
 					id="date"
 					label="Target Finish"
-					register={register("dateFinished")}
+					register={register("dateFinished", {
+						required: "Must be selected!"
+					})}
 				/>
-				<input type="text" className="hidden" {...register("image")} />
-				<TodoImageList
-					onImageSelect={(imageName) => setValue("image",imageName)}
+				<UIInputImageSelect 
+					register={register("image", {
+						required: "Image must be selected"
+					})}
+					onImageSelect={(imageName) =>{
+						setValue("image",imageName)
+						trigger("image")
+					}}
+					error={errors.image?.message}
 				/>
 				<div
 					id="form-action"

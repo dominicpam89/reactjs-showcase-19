@@ -101,6 +101,9 @@ export default {
 					},
 				},
 			},
+			fontSize:{
+				xxs: "0.65rem",
+			},
 			animation: {
 				loaderDefault: "loaderDefault 400ms ease-in infinite alternate",
 			},

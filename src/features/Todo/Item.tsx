@@ -1,10 +1,7 @@
 import { TypeTodo } from "../../data/types/query"
 import { useSearchParams } from "react-router-dom"
-import { BsFillTrash3Fill } from "react-icons/bs"
-import { BsEmojiDizzyFill } from "react-icons/bs"
-import { BsCalendarCheckFill } from "react-icons/bs"
+import { BsFillTrash3Fill, BsPencilFill, BsEmojiDizzyFill, BsCalendarCheckFill } from "react-icons/bs"
 import UIIconButton from "../../UI/Buttons/IconButton"
-
 
 type PropsImage = {
   image: string
@@ -30,7 +27,9 @@ const Detail:React.FC<PropsDetail> = ({tag, details})=>{
   return (
 		<div id="text-container" className="flex flex-col space-y-1">
 			<h2 className="text-md font-extrabold">{tag}</h2>
-			<p className="text-xs font-extralight break-words hyphens-auto text-justify leading-5">{details}</p>
+			<p className="text-xs font-extralight break-words hyphens-auto text-justify leading-5">
+				{details}
+			</p>
 		</div>
   )
 }
@@ -40,33 +39,40 @@ const Detail:React.FC<PropsDetail> = ({tag, details})=>{
 const Actions = ()=>{
   return (
 		<>
-			<UIIconButton 
-          icon={<BsFillTrash3Fill />}
-          text="Delete"
-          colorTwClass="text-danger-light-color"
-          saturation="50%"
-          onClick={()=>console.log("Delete is clicked")}
-      />
-			<UIIconButton 
-          icon={<BsEmojiDizzyFill />}
-          text="Failed"
-          colorTwClass="text-warning-main-color"
-          saturation="30%"
-          onClick={()=>console.log("Failed is clicked")}
-      />
-			<UIIconButton 
-          icon={<BsCalendarCheckFill />}
-          text="Completed"
-          colorTwClass="text-success-main-color"
-          saturation="30%"
-      />
+			<UIIconButton
+				icon={<BsFillTrash3Fill />}
+				text="Delete"
+				colorTwClass="text-danger-light-color"
+				customClass="saturate-[40%] text-xxs"
+        onClick={() => console.log("Delete is clicked")}
+				
+			/>
+			<UIIconButton
+				icon={<BsEmojiDizzyFill />}
+				text="Failed"
+				colorTwClass="text-warning-light-color"
+				customClass="saturate-[40%] text-xxs"
+        onClick={() => console.log("Failed is clicked")}
+			/>
+			<UIIconButton
+				icon={<BsCalendarCheckFill />}
+				text="Completed"
+				colorTwClass="text-success-light-color"
+				customClass="saturate-[40%] text-xxs"
+        onClick={() => console.log("Completed is clicked")}
+			/>
+			<UIIconButton
+				icon={<BsPencilFill />}
+				text={"Edit"}
+				customClass="text-xxs"
+				onClick={()=>console.log("Edit clicked")}
+			/>
 		</>
   )
 }
 
 
 const TodoItem:React.FC<{todo:TypeTodo}> = ({todo}) => {
-  console.log(todo)
   const [searchParams,_] = useSearchParams()
   const mode = searchParams.get("mode")
   if(mode!==todo.status) return

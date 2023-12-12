@@ -30,7 +30,6 @@ const motionVar:MotionVar= {
 const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 	const [selectedImage, setSelectedImage] = useState("")
 	const { data, error, isError, isLoading } = useHooksGetActivityImages("xs")
-	console.log(isError)
 
 	if (data && !isLoading) {
 		return (

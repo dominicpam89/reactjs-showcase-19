@@ -22,7 +22,7 @@ const TodoImage: React.FC<PropsImage> = ({
 				visible: {rotateZ:0}
 			}} src={urlImage} alt={imageName} className="w-full rounded-full" />
 			{selectedImage !== imageId &&
-				<div className="absolute top-0 left-0 w-full h-full rounded-full bg-primary-main-color/30 brightness-150"></div>
+				<div className="absolute top-0 left-0 w-full h-full rounded-full bg-primary-main-color mix-blend-color"></div>
 			}
 			{selectedImage === imageId && (
 				<motion.div

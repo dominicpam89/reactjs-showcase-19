@@ -1,5 +1,4 @@
-import React, { useContext } from "react"
-import { ContextMain } from "../../../data/context/main"
+import React from "react"
 import { motion } from "framer-motion"
 
 type PropsImage = {
@@ -13,9 +12,8 @@ const TodoImage: React.FC<PropsImage> = ({
 	imageId,
 	selectedImage,
 }) => {
-	const { theme } = useContext(ContextMain)
 	const urlBase = import.meta.env.VITE_SUPABASE_STORAGE_URL
-	const urlImage = urlBase + theme.current + "/" + imageFile
+	const urlImage = urlBase + imageFile
 	const imageName = imageFile.split(".")[0]
 	return (
 		<>
@@ -23,6 +21,9 @@ const TodoImage: React.FC<PropsImage> = ({
 				hidden: {rotateZ:-180},
 				visible: {rotateZ:0}
 			}} src={urlImage} alt={imageName} className="w-full rounded-full" />
+			{selectedImage !== imageId &&
+				<div className="absolute top-0 left-0 w-full h-full rounded-full bg-primary-main-color/30 brightness-150"></div>
+			}
 			{selectedImage === imageId && (
 				<motion.div
 					className="absolute top-0 left-0 w-full h-full rounded-full outline outline-3 outline-offset-2 outline-danger-main-color/50 bg-danger-main-color/50"

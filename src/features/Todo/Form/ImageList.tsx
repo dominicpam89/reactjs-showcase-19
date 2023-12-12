@@ -1,5 +1,5 @@
-import { useHooksGetActivityImages, useHooksGetImageByTheme } from "../../../data/hooks/query"
-import { LoaderDefault } from "../../../UI/Loader"
+import { useHooksGetActivityImages } from "../../../data/hooks/query"
+import { LoaderDefault, LoaderError } from "../../../UI/Loader"
 import { Variants, motion } from "framer-motion"
 import TodoImage from "./Image"
 import { useState } from "react"
@@ -29,9 +29,8 @@ const motionVar:MotionVar= {
 
 const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 	const [selectedImage, setSelectedImage] = useState("")
-	const { data, error, isError, isLoading } = useHooksGetImageByTheme()
-	const images = useHooksGetActivityImages("xs")
-	if(images.data) console.log(images.data)
+	const { data, error, isError, isLoading } = useHooksGetActivityImages("xs")
+	console.log(isError)
 
 	if (data && !isLoading) {
 		return (
@@ -72,10 +71,10 @@ const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 	if (isLoading)
 		return (
 			<div className="w-full flex justify-center">
-				<LoaderDefault />
+				<LoaderDefault opacity="opacity-80" />
 			</div>
 		)
-	else if (isError) return <p>{error.message}</p>
+	else if (isError) return <LoaderError error={error} />
 }
 
 export default TodoImageList

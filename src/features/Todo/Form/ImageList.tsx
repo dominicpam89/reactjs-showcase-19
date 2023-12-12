@@ -1,4 +1,4 @@
-import { useHooksGetImageByTheme } from "../../../data/hooks/query"
+import { useHooksGetActivityImages, useHooksGetImageByTheme } from "../../../data/hooks/query"
 import { LoaderDefault } from "../../../UI/Loader"
 import { Variants, motion } from "framer-motion"
 import TodoImage from "./Image"
@@ -30,6 +30,8 @@ const motionVar:MotionVar= {
 const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 	const [selectedImage, setSelectedImage] = useState("")
 	const { data, error, isError, isLoading } = useHooksGetImageByTheme()
+	const images = useHooksGetActivityImages("xs")
+	if(images.data) console.log(images.data)
 
 	if (data && !isLoading) {
 		return (
@@ -42,7 +44,7 @@ const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 					animate="visible"
 					exit="hidden"
 					transition={{ staggerChildren: 0.1 }}
-					className="grid grid-cols-4 gap-x-2 gap-y-2"
+				className="grid grid-cols-4 gap-x-2 gap-y-2"
 				>
 					{data.map((image) => (
 						<motion.div

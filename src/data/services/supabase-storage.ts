@@ -18,8 +18,11 @@ export const getImagesThemeEarth = async()=>{
   return images
 }
 
-export const getActivityImages = async()=>{
-  const {data:images, error} = await supabase.storage.from("activity").list()
+export type TypeImageSize = "sm"|"xs"|"lg"
+export const getActivityImages = async(size:TypeImageSize="sm")=>{
+  const {data, error} = await supabase.storage.from("activity").list("")
   if(error) throw new Error("Couldn't access image files in storage")
-  return images.filter(image=>image.name.includes("png"))
+  let images = data?.filter(image=>image.name.includes(size))
+  if(size==="lg") images = data.filter(image=>!image.name.includes("sm") && !image.name.includes("xs") && image.name.includes(".png"))
+  return images
 }

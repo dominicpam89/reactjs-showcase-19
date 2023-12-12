@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getImagesThemeDefault, getImagesThemeEarth, getImagesThemeRelax } from "../services/supabase-storage"
+import { getImagesThemeDefault, getImagesThemeEarth, getImagesThemeRelax, getActivityImages } from "../services/supabase-storage"
 import { getTodos } from "../services/todos"
 import { useContext } from "react"
 import { ContextMain } from "../context/main"
@@ -36,6 +36,16 @@ export const useHooksGetImageByTheme = ()=>{
 			: imagesRelax
 	return usedHook
 }
+
+import { TypeImageSize } from "../services/supabase-storage"
+export const useHooksGetActivityImages = (size:TypeImageSize)=>{
+	const images = useQuery({
+		queryKey: ["activity-images",size],
+		queryFn: ()=>getActivityImages(size)
+	})
+	return images
+}
+
 
 export const useHooksGetTodos = ()=>{
 	const todos = useQuery({

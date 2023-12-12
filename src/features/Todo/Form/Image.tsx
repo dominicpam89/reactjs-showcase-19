@@ -12,7 +12,7 @@ const TodoImage: React.FC<PropsImage> = ({
 	imageId,
 	selectedImage,
 }) => {
-	const urlBase = import.meta.env.VITE_SUPABASE_STORAGE_URL
+	const urlBase = import.meta.env.VITE_SUPABASE_STORAGE_ACTIVITY_URL
 	const urlImage = urlBase + imageFile
 	const imageName = imageFile.split(".")[0]
 	return (

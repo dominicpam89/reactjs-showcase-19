@@ -1,6 +1,7 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { ContextMain } from "../data/context/main"
 import { useHooksGetTodos } from "../data/hooks/query"
+import { useSearchParams } from "react-router-dom"
 import TodoBrand from "./Todo/Brand"
 import TodoItem from "./Todo/Item"
 import TodoForm from "./Todo/Form"
@@ -30,14 +31,21 @@ const BtnModal = () => {
 }
 
 const Tabs = () => {
+	const [_, setSearchParams] = useSearchParams()
 	const [select, setSelect] = useState<Select>("active")
+	useEffect(()=>{
+		setSearchParams("mode=active")
+	},[])
 	return (
 		<div id="tabs" className="w-full flex space-around">
 			{selectedTab.map((tab) => (
 				<TodoTab
 					key={tab}
 					tab={tab}
-					onClick={() => setSelect(tab)}
+					onClick={() => {
+						setSelect(tab)
+						setSearchParams(`mode=${tab}`)
+					}}
 					select={select}
 				/>
 			))}
@@ -73,7 +81,7 @@ export default function TodoPage() {
 	const twClasses = {
 		container:
 			"p-10 w-full min-h-screen flex flex-col space-y-14 items-center bg-primary-dark-color",
-		app: "w-full p-6 flex flex-col space-y-6 bg-primary-main-color",
+		app: "w-full flex flex-col space-y-6",
 	}
 	return (
 		<>

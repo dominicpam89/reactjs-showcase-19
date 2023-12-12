@@ -50,7 +50,7 @@ const Todos = () => {
 	if(!isLoading && data) return data.map((todo) => {
 		return <TodoItem key={todo.id} todo={todo} />
 	})
-	else if(isError) return <div>{error.message}</div>
+	else if(isError) return <div className="w-full py-8 flex justify-center text-danger-main-color text-sm">{error.message}</div>
 	else if(isLoading) return <div className="w-full py-8 flex justify-center"><LoaderDefault scene="dark" /></div>
 }
 

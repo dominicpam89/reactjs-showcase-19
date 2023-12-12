@@ -1,13 +1,13 @@
 type Props = {
 	width?: "sm" | "md" | "lg"
 	scene?: "dark" | "light"
-	opacity?: "opacity-100"|"opacity-80"|"opacity-50"
+	opacity?: "opacity-100" | "opacity-80" | "opacity-50"
 }
 
 export const LoaderDefault: React.FC<Props> = ({
 	scene = "light",
 	width = "sm",
-	opacity = "opacity-100"
+	opacity = "opacity-100",
 }) => {
 	const sceneColor = scene === "dark" ? "contrast" : "color"
 	const widthContainer =
@@ -41,13 +41,29 @@ export const LoaderDefault: React.FC<Props> = ({
 }
 
 type PropsLoaderError = {
-	error: Error,
-	justifyContent?: string,
-	alignItems?: string
+	error: Error
+	justifyContent?: "justify-start"|"justify-end"|"justify-center"
+	alignItems?: "items-start"|"items-end"|"items-center"
+	headerClass?: string
+	contentClass?: string
 }
-export const LoaderError:React.FC<PropsLoaderError> = ({error, justifyContent="justify-start", alignItems="items-start"})=>{
-	return <div className={`flex flex-col space-y-1 ${justifyContent} ${alignItems}`}>
-		<h1 className="text-lg text-danger-dark-color font-semibold">{error.name}</h1>
-		<p className="text-xs text-danger-main-color font-light">{error.message}</p>
-	</div>
+export const LoaderError: React.FC<PropsLoaderError> = ({
+	error,
+	justifyContent = "justify-start",
+	alignItems = "items-start",
+	headerClass = "text-danger-dark-color",
+	contentClass = "text-danger-main-color",
+}) => {
+	return (
+		<div
+			className={`flex flex-col space-y-1 ${justifyContent} ${alignItems}`}
+		>
+			<h1 className={`text-lg font-semibold ${headerClass}`}>
+				{error.name}
+			</h1>
+			<p className={`text-xs font-light ${contentClass}`}>
+				{error.message}
+			</p>
+		</div>
+	)
 }

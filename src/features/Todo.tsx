@@ -6,7 +6,7 @@ import TodoItem from "./Todo/Item"
 import TodoForm from "./Todo/Form"
 import TodoTab from "./Todo/Tab"
 import UIReactIcon from "../UI/ReactIcon"
-import { LoaderDefault } from "../UI/Loader"
+import { LoaderDefault, LoaderError } from "../UI/Loader"
 import { BsFillHddStackFill } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
 
@@ -46,12 +46,26 @@ const Tabs = () => {
 }
 
 const Todos = () => {
-	const {data, error, isError, isLoading} = useHooksGetTodos()
-	if(!isLoading && data) return data.map((todo) => {
-		return <TodoItem key={todo.id} todo={todo} />
-	})
-	else if(isError) return <div className="w-full py-8 flex justify-center text-danger-main-color text-sm">{error.message}</div>
-	else if(isLoading) return <div className="w-full py-8 flex justify-center"><LoaderDefault scene="dark" /></div>
+	const { data, error, isError, isLoading } = useHooksGetTodos()
+	if (!isLoading && data)
+		return data.map((todo) => {
+			return <TodoItem key={todo.id} todo={todo} />
+		})
+	else if (isError)
+		return (
+			<LoaderError
+				error={error}
+				headerClass="text-danger-light-color"
+				contentClass="text-danger-light-color"
+				alignItems="items-center"
+			/>
+		)
+	else if (isLoading)
+		return (
+			<div className="w-full py-8 flex justify-center">
+				<LoaderDefault scene="dark" />
+			</div>
+		)
 }
 
 export default function TodoPage() {
@@ -63,7 +77,9 @@ export default function TodoPage() {
 	}
 	return (
 		<>
-			<AnimatePresence>{context.modal.visibility && <TodoForm />}</AnimatePresence>
+			<AnimatePresence>
+				{context.modal.visibility && <TodoForm />}
+			</AnimatePresence>
 			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />
 				<div id="app" className={twClasses.app}>

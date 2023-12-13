@@ -49,6 +49,7 @@ type PropActions = {
 }
 const Actions:React.FC<PropActions> = ({mode})=>{
 	const btnDelete = <UIIconButton
+				key="btnDelete"
 				icon={<BsFillTrash3Fill />}
 				text="Delete"
 				colorTwClass="text-danger-light-color"
@@ -57,6 +58,7 @@ const Actions:React.FC<PropActions> = ({mode})=>{
 				
 			/>
 	const btnFailed = <UIIconButton
+				key="btnFailed"
 				icon={<BsEmojiDizzyFill />}
 				text="Failed"
 				colorTwClass="text-warning-light-color"
@@ -64,6 +66,7 @@ const Actions:React.FC<PropActions> = ({mode})=>{
         onClick={() => console.log("Failed is clicked")}
 			/>
 	const btnCompleted = <UIIconButton
+				key="btnCompleted"
 				icon={<BsCalendarCheckFill />}
 				text="Completed"
 				colorTwClass="text-success-light-color"
@@ -71,6 +74,7 @@ const Actions:React.FC<PropActions> = ({mode})=>{
         onClick={() => console.log("Completed is clicked")}
 			/>
 	const btnEdit = <UIIconButton
+				key="btnEdit"
 				icon={<BsPencilFill />}
 				text={"Edit"}
 				customClass="text-xxs"

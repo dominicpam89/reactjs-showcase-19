@@ -15,7 +15,10 @@ const Image:React.FC<PropsImage> = ({image})=>{
 				alt={image.replace(".png", "")}
 				className=""
 			/>
-			<div id="image-overlay" className="absolute top-0 left-0 w-full h-full rounded-full bg-primary-main-color mix-blend-color"></div>
+			<div
+				id="image-overlay"
+				className="absolute top-0 left-0 w-full h-full rounded-full bg-primary-main-color mix-blend-color"
+			></div>
 		</div>
 	)
 }
@@ -30,8 +33,11 @@ type PropsDetail = {
 
 const Detail:React.FC<PropsDetail> = ({mode, tag, details, date})=>{
 	const {text} = calcDueDate(date)
-	let deadlineText = "Must be done in "+text
-	deadlineText = mode==="completed" ? "Completed":"Failed"
+	let deadlineText = ""
+	if(mode==="active") deadlineText = "Must be done in "+text
+	else if(mode==="completed") deadlineText = "Completed"
+	else if(mode==="failed") deadlineText = "Failed"
+	// deadlineText = mode==="completed" ? "Completed":"Failed"
 	return (
 		<div id="text-container" className="flex flex-col space-y-1">
 			<h2 className="text-md font-extrabold">{tag}</h2>

@@ -5,19 +5,20 @@ export type TypeTodoFormDefaultValues = {
 	image: string
 }
 
-const now = new Date()
+export const getFormDate = (date:Date)=>{
 	const dateVal = {
-		year: now.getFullYear(),
-		month: now.getMonth()+1,
-		date: now.getDate(),
+		year: date.getFullYear(),
+		month: date.getMonth() + 1,
+		date: date.getDate(),
 	}
-const formattedDate = `${dateVal.year}-${dateVal.month}-${dateVal.date}`
+	return `${dateVal.year}-${dateVal.month}-${dateVal.date}`	
+}
 
-export const utilsTodoFormDefaultValues:TypeTodoFormDefaultValues = {
-  tag: "",
-  details: "",
-  dateFinished: formattedDate,
-  image: "",
+export const utilsTodoFormDefaultValues: TypeTodoFormDefaultValues = {
+	tag: "",
+	details: "",
+	dateFinished: getFormDate(new Date()),
+	image: "",
 }
 
 export const utilsGetInputTwClassesColor = (error: string|undefined) => {

@@ -15,21 +15,14 @@ export const utilsTodo_calcDueDate = (date:Date)=>{
     else if(week>0 && week<=4){
         if(week!==1) text=`in ${week} weeks`
         else text=`in a week`
-        if(daysLeft>0) 
+        if(daysLeft>1) 
           text+=`, and ${daysLeft} days`
+        else text+=`, and one day`
     }
-    else if(day>0 && day<=7) {
-        if(day!==1) text=`in ${day} days`
+    else if(day>=0 && day<=7) {
+        if(day>1) text=`in ${day} days`
+        else if(day===1) text=`in one day`
         else text=`today`
-        if(hoursLeft>0)
-          text+=`, and ${hoursLeft} hours`
-    }
-    else if(hours>0 && hours<=23){
-        if(hours!==1) text=`in ${hours} hours`
-        else text=`in an hour`
-    }
-    else if(hours<0 || hours===0){
-        text=``
     }
     return {due, text}
 }

@@ -1,17 +1,27 @@
 import { TypeTodo } from "../../data/types/query"
 import { useSearchParams } from "react-router-dom"
-import { BsFillTrash3Fill, BsPencilFill, BsEmojiDizzyFill, BsCalendarCheckFill } from "react-icons/bs"
-import { utilsTodo_calcDueDate as calcDueDate } from "../../data/utils/todo"
+import {
+	BsFillTrash3Fill,
+	BsPencilFill,
+	BsEmojiDizzyFill,
+	BsCalendarCheckFill,
+} from "react-icons/bs"
+import {
+	utilsTodo_calcDueDate as calcDueDate,
+	utilsGetImage as getImage,
+} from "../../data/utils/todo"
 import UIIconButton from "../../UI/Buttons/IconButton"
 
 type PropsImage = {
-  image: string
+	image: string
+	size?: "default" | "sm" | "xs"
 }
-const Image:React.FC<PropsImage> = ({image})=>{
+const Image: React.FC<PropsImage> = ({ image, size = "sm" }) => {
+	const imageName = getImage(image, size)
 	return (
 		<div id="image-container" className="relative w-[80px] h-[80px]">
 			<img
-				src={import.meta.env.VITE_SUPABASE_STORAGE_ACTIVITY_URL + image}
+				src={import.meta.env.VITE_SUPABASE_STORAGE_ACTIVITY_URL + imageName}
 				alt={image.replace(".png", "")}
 				className=""
 			/>
@@ -23,80 +33,94 @@ const Image:React.FC<PropsImage> = ({image})=>{
 	)
 }
 
-
 type PropsDetail = {
-	mode:string|null
+	mode: string | null
 	tag: string
 	details: string
 	date: any
 }
 
-const Detail:React.FC<PropsDetail> = ({mode, tag, details, date})=>{
-	const {text} = calcDueDate(date)
+const Detail: React.FC<PropsDetail> = ({ mode, tag, details, date }) => {
+	const { text } = calcDueDate(date)
 	let deadlineText = ""
-	if(mode==="active") deadlineText = "Must be done in "+text
-	else if(mode==="completed") deadlineText = "Completed"
-	else if(mode==="failed") deadlineText = "Failed"
+	if (mode === "active") deadlineText = "Must be done in " + text
+	else if (mode === "completed") deadlineText = "Completed"
+	else if (mode === "failed") deadlineText = "Failed"
 	// deadlineText = mode==="completed" ? "Completed":"Failed"
 	return (
 		<div id="text-container" className="flex flex-col space-y-1">
 			<h2 className="text-md font-extrabold">{tag}</h2>
-			<p id="details" className="text-xs font-extralight break-words hyphens-auto text-justify leading-5">
+			<p
+				id="details"
+				className="text-xs font-extralight break-words hyphens-auto text-justify leading-5"
+			>
 				{details}
 			</p>
-			<h3 id="deadline" className="text-xxs text-info-main-color/60">{deadlineText}</h3>
+			<h3 id="deadline" className="text-xxs text-info-main-color/60">
+				{deadlineText}
+			</h3>
 		</div>
-  )
+	)
 }
-
 
 type PropActions = {
-	mode: string|null
+	mode: string | null
 }
-const Actions:React.FC<PropActions> = ({mode})=>{
-	const btnDelete = <UIIconButton
-				key="btnDelete"
-				icon={<BsFillTrash3Fill />}
-				text="Delete"
-				colorTwClass="text-danger-light-color"
-				customClass="saturate-[40%] text-xxs"
-        onClick={() => console.log("Delete is clicked")}
-				
-			/>
-	const btnFailed = <UIIconButton
-				key="btnFailed"
-				icon={<BsEmojiDizzyFill />}
-				text="Failed"
-				colorTwClass="text-warning-light-color"
-				customClass="saturate-[40%] text-xxs"
-        onClick={() => console.log("Failed is clicked")}
-			/>
-	const btnCompleted = <UIIconButton
-				key="btnCompleted"
-				icon={<BsCalendarCheckFill />}
-				text="Completed"
-				colorTwClass="text-success-light-color"
-				customClass="saturate-[40%] text-xxs"
-        onClick={() => console.log("Completed is clicked")}
-			/>
-	const btnEdit = <UIIconButton
-				key="btnEdit"
-				icon={<BsPencilFill />}
-				text={"Edit"}
-				customClass="text-xxs"
-				onClick={()=>console.log("Edit clicked")}
-			/>
-	let content = [btnDelete,btnFailed,btnCompleted,btnEdit]
-	content = mode==="completed" ? [btnDelete] : mode==="failed" ? [btnDelete,btnEdit] : [btnDelete,btnFailed,btnCompleted,btnEdit]
-  return content.map(item=>item)
+const Actions: React.FC<PropActions> = ({ mode }) => {
+	const btnDelete = (
+		<UIIconButton
+			key="btnDelete"
+			icon={<BsFillTrash3Fill />}
+			text="Delete"
+			colorTwClass="text-danger-light-color"
+			customClass="saturate-[40%] text-xxs"
+			onClick={() => console.log("Delete is clicked")}
+		/>
+	)
+	const btnFailed = (
+		<UIIconButton
+			key="btnFailed"
+			icon={<BsEmojiDizzyFill />}
+			text="Failed"
+			colorTwClass="text-warning-light-color"
+			customClass="saturate-[40%] text-xxs"
+			onClick={() => console.log("Failed is clicked")}
+		/>
+	)
+	const btnCompleted = (
+		<UIIconButton
+			key="btnCompleted"
+			icon={<BsCalendarCheckFill />}
+			text="Completed"
+			colorTwClass="text-success-light-color"
+			customClass="saturate-[40%] text-xxs"
+			onClick={() => console.log("Completed is clicked")}
+		/>
+	)
+	const btnEdit = (
+		<UIIconButton
+			key="btnEdit"
+			icon={<BsPencilFill />}
+			text={"Edit"}
+			customClass="text-xxs"
+			onClick={() => console.log("Edit clicked")}
+		/>
+	)
+	let content = [btnDelete, btnFailed, btnCompleted, btnEdit]
+	content =
+		mode === "completed"
+			? [btnDelete]
+			: mode === "failed"
+			? [btnDelete, btnEdit]
+			: [btnDelete, btnFailed, btnCompleted, btnEdit]
+	return content.map((item) => item)
 }
 
-
-const TodoItem:React.FC<{todo:TypeTodo}> = ({todo}) => {
-  const [searchParams,_] = useSearchParams()
-  const mode = searchParams.get("mode")	
-  if(mode!==todo.status) return <></>
-  return (
+const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
+	const [searchParams, _] = useSearchParams()
+	const mode = searchParams.get("mode")
+	if (mode !== todo.status) return <></>
+	return (
 		<>
 			<div
 				id="container"
@@ -119,7 +143,7 @@ const TodoItem:React.FC<{todo:TypeTodo}> = ({todo}) => {
 				</div>
 			</div>
 		</>
-  )
+	)
 }
- 
-export default TodoItem;
+
+export default TodoItem

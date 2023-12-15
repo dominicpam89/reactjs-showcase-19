@@ -30,7 +30,6 @@ const motionVar:MotionVar= {
 const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 	const [selectedImage, setSelectedImage] = useState("")
 	const { data, error, isError, isLoading } = useHooksGetActivityImages("xs")
-
 	if (data && !isLoading) {
 		return (
 			<div className="flex flex-col space-y-2">

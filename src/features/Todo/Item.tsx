@@ -73,7 +73,7 @@ const Actions = () => {
 			text="Delete"
 			colorTwClass="text-danger-light-color"
 			customClass="saturate-[40%] text-xxs"
-			onClick={() => console.log("Delete is clicked")}
+			onClick={() => console.log("delete todo")}
 		/>
 	)
 	const btnFailed = (

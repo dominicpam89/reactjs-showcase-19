@@ -11,9 +11,6 @@ import { LoaderDefault, LoaderError } from "../UI/Loader"
 import { BsFillHddStackFill } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
 
-type Select = "active" | "completed" | "failed"
-const selectedTab: Select[] = ["active", "completed", "failed"]
-
 const BtnModal = () => {
 	const context = useContext(ContextMain)
 	return (
@@ -30,6 +27,8 @@ const BtnModal = () => {
 	)
 }
 
+type Select = "active" | "completed" | "failed"
+const selectedTab: Select[] = ["active", "completed", "failed"]
 const Tabs = () => {
 	const [_, setSearchParams] = useSearchParams()
 	const [select, setSelect] = useState<Select>("active")

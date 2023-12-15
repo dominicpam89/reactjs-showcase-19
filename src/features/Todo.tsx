@@ -53,11 +53,15 @@ const Tabs = () => {
 }
 
 const Todos = () => {
+	const [searchParam] = useSearchParams()
+	const mode = searchParam.get("mode")
 	const { data, error, isError, isLoading } = useHooksGetTodos()
-	if (!isLoading && data)
-		return data.map((todo) => {
+	if (!isLoading && data){
+		const filteredData = data.filter(todo=>todo.status===mode)
+		return filteredData.map((todo) => {
 			return <TodoItem key={todo.id} todo={todo} />
 		})
+	}
 	else if (isError)
 		return (
 			<LoaderError

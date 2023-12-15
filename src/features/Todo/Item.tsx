@@ -34,19 +34,19 @@ const Image: React.FC<PropsImage> = ({ image, size = "sm" }) => {
 }
 
 type PropsDetail = {
-	mode: string | null
 	tag: string
 	details: string
 	date: any
 }
 
-const Detail: React.FC<PropsDetail> = ({ mode, tag, details, date }) => {
+const Detail: React.FC<PropsDetail> = ({ tag, details, date }) => {
+	const [searchParams, _] = useSearchParams()
+	const mode = searchParams.get("mode")
 	const { text } = calcDueDate(date)
 	let deadlineText = ""
 	if (mode === "active") deadlineText = "Must be done in " + text
 	else if (mode === "completed") deadlineText = "Completed"
 	else if (mode === "failed") deadlineText = "Failed"
-	// deadlineText = mode==="completed" ? "Completed":"Failed"
 	return (
 		<div id="text-container" className="flex flex-col space-y-1">
 			<h2 className="text-md font-extrabold">{tag}</h2>
@@ -63,10 +63,9 @@ const Detail: React.FC<PropsDetail> = ({ mode, tag, details, date }) => {
 	)
 }
 
-type PropActions = {
-	mode: string | null
-}
-const Actions: React.FC<PropActions> = ({ mode }) => {
+const Actions = () => {
+	const [searchParams, _] = useSearchParams()
+	const mode = searchParams.get("mode")
 	const btnDelete = (
 		<UIIconButton
 			key="btnDelete"
@@ -117,9 +116,6 @@ const Actions: React.FC<PropActions> = ({ mode }) => {
 }
 
 const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
-	const [searchParams, _] = useSearchParams()
-	const mode = searchParams.get("mode")
-	if (mode !== todo.status) return <></>
 	return (
 		<>
 			<div
@@ -132,14 +128,13 @@ const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
 				>
 					<Image image={todo.image} />
 					<Detail
-						mode={mode}
 						tag={todo.tag}
 						details={todo.details}
 						date={todo.dateFinished}
 					/>
 				</div>
 				<div id="row-2" className="flex justify-around">
-					<Actions mode={mode} />
+					<Actions />
 				</div>
 			</div>
 		</>

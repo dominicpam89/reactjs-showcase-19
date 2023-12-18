@@ -101,21 +101,21 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 					<UIDeleteConfirmation
 						key="delete-modal"
 						hideModal={() => setDeleteModal(false)}
-						onDelete={() => console.log("delete ",todo.tag)}
+						onDelete={() => todoDelete.mutate(todo)}
 					/>
 				)}
 				{failedModal && <UIUpdateConfirmation
 					key="failed-modal"
 					modalHide={()=>setFailedModal(false)}
-					onUpdate={()=> console.log("failed ",todo.tag)}
+					onUpdate={()=> todoUpdateStatus.mutate({status:"failed",todoId:todo.id})}
 				/>}
 				{completedModal && <UIUpdateConfirmation 
-					key=""
+					key="completed-modal"
 					modalHide={()=>setCompletedModal(false)}
-					onUpdate={()=>console.log("completed", todo.tag)}
+					onUpdate={()=>todoUpdateStatus.mutate({status:"completed",todoId:todo.id})}
 				/>}
 					{formModal && (
-						<TodoForm todo={todo} todoUpdate={todoUpdate} onClose={()=>setFormModal(false)} />
+						<TodoForm key="update-modal" todo={todo} todoUpdate={todoUpdate} onClose={()=>setFormModal(false)} />
 					)}
 			</AnimatePresence>
 			{/* Main Content: Action Buttons */}

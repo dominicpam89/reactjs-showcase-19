@@ -5,9 +5,10 @@ export const useHooksContextMain = () => {
 	const [theme, setTheme] = useState<TypeThemeSelection>("theme-default")
 	const _theme = {
 		current: theme,
-		changeTheme: (selectedTheme:TypeThemeSelection) => setTheme(selectedTheme),
+		changeTheme: (selectedTheme: TypeThemeSelection) =>
+			setTheme(selectedTheme),
 	}
-  return _theme
+	return _theme
 }
 
 export const useHooksModal = () => {
@@ -17,5 +18,15 @@ export const useHooksModal = () => {
 		show: () => setVisible(true),
 		hide: () => setVisible(false),
 	}
-   return modalState
+	return modalState
+}
+
+export const useHooksModalDeleteConfirmation = () => {
+	const [visible, setVisible] = useState(false)
+	const modalState = {
+		visibility: visible,
+		show: () => setVisible(true),
+		hide: () => setVisible(false),
+	}
+	return modalState
 }

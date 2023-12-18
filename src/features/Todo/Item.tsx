@@ -1,5 +1,5 @@
 import { TypeTodo } from "../../data/types/query"
-import { useHooksDeleteTodo, useHooksUpdateTodo } from "../../data/hooks/query"
+import { useHooksDeleteTodo, useHooksUpdateStatusTodo } from "../../data/hooks/query"
 import { LoaderError } from "../../UI/Loader"
 import TodoItemAction from "./Item/Action"
 import TodoItemImage from "./Item/Image"
@@ -7,7 +7,7 @@ import TodoItemDetail from "./Item/Detail"
 
 const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
 	const todoDelete = useHooksDeleteTodo()
-	const todoUpdate = useHooksUpdateTodo()
+	const todoUpdateStatus = useHooksUpdateStatusTodo()
 	const errors = {
 		delete: (
 			<LoaderError
@@ -36,7 +36,11 @@ const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
 				</div>
 				{todoDelete.isError && errors.delete}
 				<div id="row-2" className="flex justify-around">
-					<TodoItemAction todo={todo} todoDelete={todoDelete} todoUpdate={todoUpdate} />
+					<TodoItemAction
+						todo={todo}
+						todoDelete={todoDelete}
+						todoUpdateStatus={todoUpdateStatus}
+					/>
 				</div>
 			</div>
 		</>

@@ -1,5 +1,5 @@
 import { UseMutationResult } from "@tanstack/react-query"
-import { TypeQueryUpdateTodo, TypeTodo } from "../../../data/types/query"
+import { TypeQueryUpdateStatusTodo, TypeTodo } from "../../../data/types/query"
 import { useContext } from "react"
 import { ContextMain } from "../../../data/context/main"
 import { useSearchParams } from "react-router-dom"
@@ -17,10 +17,10 @@ import UIUpdateConfirmation from "../../../UI/Modal/UpdateConfirmation"
 type PropsActions = {
 	todo: TypeTodo
 	todoDelete: UseMutationResult<void, Error, TypeTodo, void>
-	todoUpdate: UseMutationResult<void, Error, TypeQueryUpdateTodo, void>
+	todoUpdateStatus: UseMutationResult<void, Error, TypeQueryUpdateStatusTodo, void>
 }
 
-const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate }) => {
+const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdateStatus }) => {
 	// Modal
 	const { modalConfirmation } = useContext(ContextMain)
 	const {delete:modalDelete, failed:modalFailed, completed:modalCompleted} = modalConfirmation
@@ -30,7 +30,7 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate }
 	const mode = searchParams.get("mode")
 
 	// status of query
-	const isTakingAction = todoDelete.isPending || todoUpdate.isPending
+	const isTakingAction = todoDelete.isPending || todoUpdateStatus.isPending
 
 	const btnDelete = (
 		<UIIconButton
@@ -95,13 +95,13 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate }
 				{modalFailed.visibility && <UIUpdateConfirmation 
 					key="failed-confirmation"
 					modalHide={()=>modalFailed.hide()}
-					onUpdate={()=>todoUpdate.mutate({status:"failed", todoId:todo.id})}
+					onUpdate={()=>todoUpdateStatus.mutate({status:"failed", todoId:todo.id})}
 					title="Set todo activity as failed?"
 				/>}
 				{modalCompleted.visibility && <UIUpdateConfirmation 
 					key="completed confirmation"
 					modalHide={()=>modalCompleted.hide()}
-					onUpdate={()=>todoUpdate.mutate({status:"completed", todoId:todo.id})}
+					onUpdate={()=>todoUpdateStatus.mutate({status:"completed", todoId:todo.id})}
 					title="Set todo activity as completed?"
 				/>}
 			</AnimatePresence>

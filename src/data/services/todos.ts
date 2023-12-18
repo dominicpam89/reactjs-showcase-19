@@ -1,5 +1,5 @@
 import { supabase } from "./supabase"
-import { TypeTodo, TypeQueryUpdateTodo } from "../types/query"
+import { TypeTodo, TypeQueryUpdateStatusTodo } from "../types/query"
 import { TypeTodoFormValues, getFormDate } from "../utils/todoForm"
 
 export const getTodos = async ()=>{
@@ -33,7 +33,7 @@ export const deleteTodo = async(todoId:number)=>{
   if(error) throw new Error("Couldn't delete this item!")
 }
 
-export const updateTodo = async({todoId, status}:TypeQueryUpdateTodo)=>{
+export const updateStatusTodo = async({todoId, status}:TypeQueryUpdateStatusTodo)=>{
   const { error } = await supabase
   .from('todos')
   .update({ status })

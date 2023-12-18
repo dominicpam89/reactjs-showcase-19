@@ -8,7 +8,7 @@ export type TypeTodo = {
 	status: "active" | "completed" | "failed"
 }
 
-export type TypeQueryUpdateTodo = {
+export type TypeQueryUpdateStatusTodo = {
   todoId: number,
   status: "active"|"failed"|"completed"
 }

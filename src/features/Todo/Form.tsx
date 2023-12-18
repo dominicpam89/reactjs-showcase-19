@@ -1,5 +1,5 @@
-import { useForm, FieldErrors, FieldValues } from "react-hook-form"
-import { utilsTodoFormDefaultValues as defaultValues, getFormDate } from "../../data/utils/todoForm"
+import { useForm } from "react-hook-form"
+import { TypeTodoFormValues, utilsTodoFormDefaultValues as defaultValues, getFormDate } from "../../data/utils/todoForm"
 import UIModal from "../../UI/Modal"
 import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
@@ -7,17 +7,18 @@ import UIInputDateStd from "../../UI/Form/InputDateStd"
 import UIInputImageSelect from "../../UI/Form/InputImageSelect"
 import ButtonCancel from "./Form/ButtonCancel"
 import ButtonSubmit from "./Form/ButtonSubmit"
+import { LoaderError } from "../../UI/Loader"
 import { useContext } from "react"
 import { ContextMain } from "../../data/context/main"
+import { useHooksAddTodo } from "../../data/hooks/query"
 
 const TodoForm = () => {
 	const {modal} = useContext(ContextMain)
 	const { register, handleSubmit, resetField, setValue, formState:{errors}, watch, trigger } = useForm({defaultValues, mode:"all"})
-	const onSubmit = (data: FieldValues) => {
-		console.log(data)
-	}
-	const onInvalid = (errors: FieldErrors) => {
-		console.log(errors)
+	const {mutate:addTodo, isPending:isQueryPending, error:queryError, isError:isQueryError} = useHooksAddTodo()
+	const onSubmit = (data: TypeTodoFormValues) => {
+		addTodo(data)
+		if(!isQueryPending && !isQueryError) modal.hide()
 	}
 	const cancelForm = ()=>{
 		resetField("tag")
@@ -28,12 +29,13 @@ const TodoForm = () => {
 	}
 
 	return (
-		<UIModal padding="sm">
+		<UIModal padding="sm" onClick={modal.hide}>
 			<form
 				className="w-full p-10 flex flex-col space-y-5 bg-primary-main-contrast"
 				onClick={(e) => e.stopPropagation()}
-				onSubmit={handleSubmit(onSubmit, onInvalid)}
+				onSubmit={handleSubmit(onSubmit)}
 			>
+				{isQueryError && <LoaderError error={queryError} />}
 				<UIInputField
 					id="tag"
 					label="Todo Title"
@@ -81,8 +83,8 @@ const TodoForm = () => {
 					id="form-action"
 					className="w-full pt-4 flex flex-row space-x-2"
 				>
-					<ButtonCancel onClick={cancelForm} />
-					<ButtonSubmit />
+					<ButtonCancel onClick={cancelForm} disabled={isQueryPending} />
+					<ButtonSubmit disabled={isQueryPending} />
 				</div>
 			</form>
 		</UIModal>

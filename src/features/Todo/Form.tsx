@@ -18,7 +18,6 @@ const TodoForm = () => {
 	const {mutate:addTodo, isPending:isQueryPending, error:queryError, isError:isQueryError} = useHooksAddTodo()
 	const onSubmit = (data: TypeTodoFormValues) => {
 		addTodo(data)
-		if(!isQueryPending && !isQueryError) modal.hide()
 	}
 	const cancelForm = ()=>{
 		resetField("tag")

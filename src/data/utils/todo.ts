@@ -20,13 +20,12 @@ export const utilsTodo_calcDueDate = (date:Date)=>{
         else text+=`, and one day`
     }
     else if(day>=0 && day<=7) {
-        if(day>1) text=`in ${day} days`
-        else if(day===1) text=`in one day`
+        if(day===1) text=`tomorrow`
+        else if(day>1) text=`in ${day} days`
         else text=`today`
     }
     return {due, text}
 }
-
 
 
 type TypeSize = "default"|"sm"|"xs"

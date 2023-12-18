@@ -50,7 +50,7 @@ const Detail: React.FC<PropsDetail> = ({ tag, details, date }) => {
 	const mode = searchParams.get("mode")
 	const { text } = calcDueDate(date)
 	let deadlineText = ""
-	if (mode === "active") deadlineText = "Must be done in " + text
+	if (mode === "active") deadlineText = "Must be done " + text
 	else if (mode === "completed") deadlineText = "Completed"
 	else if (mode === "failed") deadlineText = "Failed"
 	return (

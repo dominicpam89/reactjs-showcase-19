@@ -1,7 +1,8 @@
 import { UseFormRegisterReturn } from "react-hook-form"
 import { TypeCommonPadding } from "./common"
+import { HTMLMotionProps } from "framer-motion"
 
-export type TypeModalProps = {
+export interface TypeModalProps extends HTMLMotionProps<"div"> {
 	children: React.ReactNode
 	centered?: boolean
 	padding?: TypeCommonPadding

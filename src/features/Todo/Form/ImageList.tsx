@@ -7,6 +7,7 @@ import { useState } from "react"
 type Props = {
 	inputError: string|undefined
 	onImageSelect: (imageName: string) => void
+	existedImage: string | undefined
 }
 
 type MotionVar = {
@@ -27,7 +28,7 @@ const motionVar:MotionVar= {
 }
 
 
-const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
+const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError, existedImage }) => {
 	const [selectedImage, setSelectedImage] = useState("")
 	const { data, error, isError, isLoading } = useHooksGetActivityImages("xs")
 	if (data && !isLoading) {
@@ -59,6 +60,7 @@ const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError }) => {
 								imageFile={image.name}
 								imageId={image.id}
 								selectedImage={selectedImage}
+								existedImage={existedImage}
 							/>
 						</motion.div>
 					))}

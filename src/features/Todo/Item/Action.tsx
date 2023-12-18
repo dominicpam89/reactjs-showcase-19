@@ -1,7 +1,6 @@
 import { UseMutationResult } from "@tanstack/react-query"
-import { TypeQueryUpdateStatusTodo, TypeTodo } from "../../../data/types/query"
-import { useContext } from "react"
-import { ContextMain } from "../../../data/context/main"
+import { TypeQueryUpdateStatusTodo, TypeTodo, TypeTodoUpdateArg } from "../../../data/types/query"
+import { useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import UIIconButton from "../../../UI/Buttons/IconButton"
 import {
@@ -11,21 +10,23 @@ import {
 	BsPencilFill,
 } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
+import TodoForm from "../Form"
 import UIDeleteConfirmation from "../../../UI/Modal/DeleteConfirmation"
 import UIUpdateConfirmation from "../../../UI/Modal/UpdateConfirmation"
-import TodoForm from "../Form"
 
 type PropsActions = {
 	todo: TypeTodo
 	todoDelete: UseMutationResult<void, Error, TypeTodo, void>
-	todoUpdate: UseMutationResult<void, Error, TypeTodo, void>
+	todoUpdate: UseMutationResult<void, Error, TypeTodoUpdateArg, void>
 	todoUpdateStatus: UseMutationResult<void, Error, TypeQueryUpdateStatusTodo, void>
 }
 
 const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, todoUpdateStatus }) => {
 	// Modal
-	const { modalConfirmation, modalForm } = useContext(ContextMain)
-	const {delete:modalDelete, failed:modalFailed, completed:modalCompleted} = modalConfirmation
+	const [deleteModal, setDeleteModal] = useState(false)
+	const [failedModal, setFailedModal] = useState(false)
+	const [completedModal, setCompletedModal] = useState(false)
+	const [formModal, setFormModal] = useState(false)
 
 	// What to display based on mode==="active"||"completed"||"failed"
 	const [searchParams, _] = useSearchParams()
@@ -41,7 +42,9 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			text="Delete"
 			colorTwClass="text-danger-light-color"
 			customClass="saturate-[40%] text-xxs"
-			onClick={() => modalDelete.show()}
+			onClick={() => {
+				setDeleteModal(true)
+			}}
 			disabled={isTakingAction}
 		/>
 	)
@@ -52,7 +55,9 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			text="Failed"
 			colorTwClass="text-warning-light-color"
 			customClass="saturate-[40%] text-xxs"
-			onClick={modalFailed.show}
+			onClick={()=>{
+				setFailedModal(true)
+			}}
 			disabled={isTakingAction}
 		/>
 	)
@@ -63,7 +68,9 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			text="Completed"
 			colorTwClass="text-success-light-color"
 			customClass="saturate-[40%] text-xxs"
-			onClick={modalCompleted.show}
+			onClick={() => {
+				setCompletedModal(true)
+			}}
 			disabled={isTakingAction}
 		/>
 	)
@@ -73,7 +80,9 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			icon={<BsPencilFill />}
 			text={"Edit"}
 			customClass="text-xxs"
-			onClick={() => modalForm.show()}
+			onClick={()=>{
+				setFormModal(true)
+			}}
 			disabled={isTakingAction}
 		/>
 	)
@@ -88,39 +97,26 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 		<>
 			{/* Modal Confirmation of any Actions */}
 			<AnimatePresence>
-				{modalDelete.visibility && (
+				{deleteModal && (
 					<UIDeleteConfirmation
-						key="delete-confirmation"
-						onDelete={() => todoDelete.mutate(todo)}
+						key="delete-modal"
+						hideModal={() => setDeleteModal(false)}
+						onDelete={() => console.log("delete ",todo.tag)}
 					/>
 				)}
-				{modalFailed.visibility && (
-					<UIUpdateConfirmation
-						key="failed-confirmation"
-						modalHide={() => modalFailed.hide()}
-						onUpdate={() =>
-							todoUpdateStatus.mutate({
-								status: "failed",
-								todoId: todo.id,
-							})
-						}
-						title="Set todo activity as failed?"
-					/>
-				)}
-				{modalCompleted.visibility && (
-					<UIUpdateConfirmation
-						key="completed confirmation"
-						modalHide={() => modalCompleted.hide()}
-						onUpdate={() =>
-							todoUpdateStatus.mutate({
-								status: "completed",
-								todoId: todo.id,
-							})
-						}
-						title="Set todo activity as completed?"
-					/>
-				)}
-				{modalForm.visibility && <TodoForm todo={todo} />}
+				{failedModal && <UIUpdateConfirmation
+					key="failed-modal"
+					modalHide={()=>setFailedModal(false)}
+					onUpdate={()=> console.log("failed ",todo.tag)}
+				/>}
+				{completedModal && <UIUpdateConfirmation 
+					key=""
+					modalHide={()=>setCompletedModal(false)}
+					onUpdate={()=>console.log("completed", todo.tag)}
+				/>}
+					{formModal && (
+						<TodoForm todo={todo} todoUpdate={todoUpdate} onClose={()=>setFormModal(false)} />
+					)}
 			</AnimatePresence>
 			{/* Main Content: Action Buttons */}
 			{content.map((item) => item)}

@@ -1,6 +1,6 @@
+import { TypeTodoFormValues } from './../utils/todoForm';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { TypeTodo, TypeQueryUpdateStatusTodo } from "../types/query"
-import { TypeTodoFormValues } from "../utils/todoForm"
+import { TypeTodo, TypeQueryUpdateStatusTodo, TypeTodoUpdateArg } from "../types/query"
 import { getActivityImages } from "../services/supabase-storage"
 import { getTodos, addTodo, deleteTodo, updateStatusTodo, updateTodo } from "../services/todos"
 import { toast } from "react-hot-toast"
@@ -86,10 +86,11 @@ export const useHooksUpdateStatusTodo = ()=>{
 	return todoUpdate
 }
 
+
 export const useHooksUpdateTodo = ()=>{
 	const queryClient = useQueryClient()
 	const todoUpdate = useMutation({
-		mutationFn: (data:TypeTodo)=>updateTodo({todo:data}),
+		mutationFn: ({data, todoId}:TypeTodoUpdateArg)=>updateTodo(data,todoId),
 		onMutate: ()=>{
 			toast.loading(`Updating...`, {id:"loading"})
 		},

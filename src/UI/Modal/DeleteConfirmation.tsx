@@ -1,14 +1,12 @@
-import { useContext } from "react"
 import UIModal from "../Modal"
-import { ContextMain } from "../../data/context/main"
 
 type Props = {
-  onDelete: ()=>void
+	hideModal: ()=>void,
+	onDelete: ()=>void
 }
 
-const UIDeleteConfirmation:React.FC<Props> = ({onDelete}) => {
-  const {modalConfirmation:{delete:modalDelete}} = useContext(ContextMain)
-  return (
+const UIDeleteConfirmation:React.FC<Props> = ({hideModal, onDelete}) => {
+	return (
 		<>
 			<UIModal centered>
 				<div
@@ -23,14 +21,14 @@ const UIDeleteConfirmation:React.FC<Props> = ({onDelete}) => {
 					</div>
 					<div id="action" className="w-full flex space-x-2">
 						<button
-							onClick={modalDelete.hide}
+							onClick={hideModal}
 							className="w-full rounded-sm py-2 px-3 border border-primary-main-color/50"
 						>
 							Cancel
 						</button>
 						<button 
               onClick={()=>{
-                modalDelete.hide()
+								hideModal()
                 onDelete()
               }}
               className="w-full rounded-sm py-2 px-3 bg-primary-main-color text-primary-main-contrast"

@@ -1,3 +1,5 @@
+import { TypeTodoFormValues } from "../utils/todoForm"
+
 export type TypeTodo = {
 	id: number
 	created_at: Date
@@ -11,4 +13,9 @@ export type TypeTodo = {
 export type TypeQueryUpdateStatusTodo = {
   todoId: number,
   status: "active"|"failed"|"completed"
+}
+
+export type TypeTodoUpdateArg = {
+	data: TypeTodoFormValues
+	todoId: number
 }

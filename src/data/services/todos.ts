@@ -41,7 +41,7 @@ export const updateStatusTodo = async({todoId, status}:TypeQueryUpdateStatusTodo
   if(error) throw new Error("Couldn't update this item's status!")
 }
 
-export const updateTodo = async({todo}:{todo:TypeTodo})=>{
+export const updateTodo = async(todo:TypeTodoFormValues, todoId:number)=>{
   const { error } = await supabase
 		.from("todos")
 		.update({
@@ -50,6 +50,6 @@ export const updateTodo = async({todo}:{todo:TypeTodo})=>{
 			dateFinished: todo.dateFinished,
 			image: todo.image,
 		})
-		.eq("id", todo.id)
+		.eq("id", todoId)
   if(error) throw new Error("Couldn't update this item!")
 }

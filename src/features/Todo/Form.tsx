@@ -16,12 +16,15 @@ import { LoaderError } from "../../UI/Loader"
 import { useContext } from "react"
 import { ContextMain } from "../../data/context/main"
 import { useHooksAddTodo } from "../../data/hooks/query"
-import { TypeTodo } from "../../data/types/query"
+import { TypeTodo, TypeTodoUpdateArg } from "../../data/types/query"
+import { UseMutationResult } from "@tanstack/react-query"
 
 type Props = {
 	todo?: TypeTodo
+	todoUpdate?: UseMutationResult<void, Error, TypeTodoUpdateArg, void>
+	onClose: ()=>void
 }
-const TodoForm:React.FC<Props> = ({todo=undefined}) => {
+const TodoForm:React.FC<Props> = ({todo=undefined, todoUpdate, onClose}) => {
 	const {modalForm} = useContext(ContextMain)
 	const {
 		register,
@@ -30,25 +33,31 @@ const TodoForm:React.FC<Props> = ({todo=undefined}) => {
 		setValue,
 		formState: { errors },
 		watch,
-		trigger,
 	} = useForm({
 		defaultValues: todo ? defaultValuesEdit(todo) : defaultValues,
 		mode: "all",
 	})
 	const {mutate:addTodo, isPending:isQueryPending, error:queryError, isError:isQueryError} = useHooksAddTodo()
-	const onSubmit = (data: TypeTodoFormValues) => {
-		addTodo(data)
+	const onSubmit = async (data: TypeTodoFormValues) => {
+		if(todo){
+			todoUpdate?.mutate({data,todoId:todo.id})
+			todoUpdate?.isPending ? null : onClose()
+		}
+		else addTodo(data)
 	}
 	const cancelForm = ()=>{
-		resetField("tag")
-		resetField("details")
-		resetField("image")
-		setValue("dateFinished",getFormDate(new Date()))
-		modalForm.hide()
+		if(todo) onClose()
+		else {
+			modalForm.hide()
+			resetField("tag")
+			resetField("details")
+			resetField("image")
+			setValue("dateFinished",getFormDate(new Date()))
+		}
 	}
 
 	return (
-		<UIModal padding="sm" onClick={modalForm.hide}>
+		<UIModal padding="sm" onClick={todo?onClose:modalForm.hide}>
 			<form
 				className="w-full p-10 flex flex-col space-y-5 bg-primary-main-contrast"
 				onClick={(e) => e.stopPropagation()}
@@ -94,15 +103,15 @@ const TodoForm:React.FC<Props> = ({todo=undefined}) => {
 					})}
 					onImageSelect={(imageName) => {
 						setValue("image", imageName)
-						trigger("image")
 					}}
 					error={errors.image?.message}
+					existedImage={todo?.image}
 				/>
 				<div
 					id="form-action"
 					className="w-full pt-4 flex flex-row space-x-2"
 				>
-					<ButtonCancel onClick={cancelForm} disabled={isQueryPending} />
+					<ButtonCancel onClick={todo?onClose:cancelForm} disabled={isQueryPending} />
 					<ButtonSubmit disabled={isQueryPending} />
 				</div>
 			</form>

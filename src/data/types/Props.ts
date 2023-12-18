@@ -29,4 +29,5 @@ export interface TypeInputImageSelect{
 	error?: string | undefined
 	register?: UseFormRegisterReturn
 	onImageSelect: (imageName:string)=>void
+	existedImage?: string | undefined
 }

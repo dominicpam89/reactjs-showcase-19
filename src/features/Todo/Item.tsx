@@ -17,6 +17,7 @@ import UIDeleteConfirmation from "../../UI/Modal/DeleteConfirmation"
 import { useContext } from "react"
 import { ContextMain } from "../../data/context/main"
 import { AnimatePresence } from "framer-motion"
+import { UseMutationResult } from "@tanstack/react-query"
 
 type PropsImage = {
 	image: string
@@ -71,14 +72,14 @@ const Detail: React.FC<PropsDetail> = ({ tag, details, date }) => {
 
 type PropsActions = {
 	todo: TypeTodo
+	todoDelete: UseMutationResult<void, Error, TypeTodo, void>
 }
 
-const Actions:React.FC<PropsActions> = ({todo}) => {
+const Actions:React.FC<PropsActions> = ({todo, todoDelete}) => {
 	const {modalDeleteConfirmation:modalDelete} = useContext(ContextMain)
 	const [searchParams, _] = useSearchParams()
-	const {mutate:deleteTodo, isPending:isDeletePending} = useHooksDeleteTodo()
 	const mode = searchParams.get("mode")
-	const isTakingAction = isDeletePending
+	const isTakingAction = todoDelete.isPending
 	const btnDelete = (
 		<UIIconButton
 			key="btnDelete"
@@ -131,21 +132,21 @@ const Actions:React.FC<PropsActions> = ({todo}) => {
 			? [btnDelete, btnEdit]
 			: [btnDelete, btnFailed, btnCompleted, btnEdit]
 	return <>
-		<AnimatePresence>{modalDelete.visibility && <UIDeleteConfirmation onDelete={()=>deleteTodo(todo)} />}</AnimatePresence>
+		<AnimatePresence>{modalDelete.visibility && <UIDeleteConfirmation onDelete={()=>todoDelete.mutate(todo)} />}</AnimatePresence>
 		{content.map((item) => item)}
 	</>
 }
 
 const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
-	const actionDelete = useHooksDeleteTodo()
+	const todoDelete = useHooksDeleteTodo()
 	const errors = {
-		delete: <LoaderError error={actionDelete.error} justifyContent="justify-center" alignItems="items-center" />
+		delete: <LoaderError error={todoDelete.error} justifyContent="justify-center" alignItems="items-center" />
 	}
 	return (
 		<>
 			<div
-				id="container"
-				className="w-full p-6 flex flex-col space-y-8 bg-primary-main-color/30 text-primary-main-contrast"
+				id={`container ${todo.id}`}
+				className="relative w-full p-6 flex flex-col space-y-8 bg-primary-main-color/30 text-primary-main-contrast"
 			>
 				<div
 					id="row-1"
@@ -158,9 +159,9 @@ const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
 						date={todo.dateFinished}
 					/>
 				</div>
-				{actionDelete.isError && errors.delete}
+				{todoDelete.isError && errors.delete}
 				<div id="row-2" className="flex justify-around">
-					<Actions todo={todo} />
+					<Actions todo={todo} todoDelete={todoDelete} />
 				</div>
 			</div>
 		</>

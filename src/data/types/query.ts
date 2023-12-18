@@ -7,3 +7,8 @@ export type TypeTodo = {
 	dateFinished: Date
 	status: "active" | "completed" | "failed"
 }
+
+export type TypeQueryUpdateTodo = {
+  todoId: number,
+  status: "active"|"failed"|"completed"
+}

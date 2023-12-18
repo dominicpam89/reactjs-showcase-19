@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { TypeTodo } from "../types/query"
+import { TypeTodo, TypeQueryUpdateTodo } from "../types/query"
 import { TypeTodoFormValues } from "../utils/todoForm"
 import { getActivityImages } from "../services/supabase-storage"
-import { getTodos, addTodo, deleteTodo } from "../services/todos"
+import { getTodos, addTodo, deleteTodo, updateTodo } from "../services/todos"
 import { toast } from "react-hot-toast"
 import { TypeImageSize } from "../services/supabase-storage"
 import { useContext } from "react"
@@ -64,4 +64,24 @@ export const useHooksDeleteTodo = ()=>{
 		}
 	})
 	return todoDelete
+}
+
+export const useHooksUpdateTodo = ()=>{
+	const queryClient = useQueryClient()
+	const todoUpdate = useMutation({
+		mutationFn: (data:TypeQueryUpdateTodo)=>updateTodo(data),
+		onMutate: ()=>{
+			toast.loading(`Updating...`, {id:"loading"})
+		},
+		onError: (error)=>{
+			toast.dismiss("loading")
+			toast.error(error.message)
+		},
+		onSuccess: ()=>{
+			toast.dismiss("loading")
+			toast.success(`Successfullly updated!`)
+			queryClient.invalidateQueries({queryKey:["todos"]})
+		}
+	})
+	return todoUpdate
 }

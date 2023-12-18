@@ -1,6 +1,6 @@
 import { supabase } from "./supabase"
 import { TypeTodo } from "../types/query"
-
+import { TypeTodoFormValues, getFormDate } from "../utils/todoForm"
 
 export const getTodos = async ()=>{
   const { data, error } = await supabase
@@ -11,9 +11,17 @@ export const getTodos = async ()=>{
   return todos
 }
 
-
-export const addTodo = async()=>{
-  
+export const addTodo = async({tag,dateFinished,details,image}:TypeTodoFormValues)=>{
+  const { error } = await supabase
+		.from("todos")
+		.insert({
+			tag,
+			dateFinished: getFormDate(new Date(dateFinished)),
+			details,
+			image,
+			status: "active",
+		})
+  if(error) throw new Error("500 Internal Error. Couldn't add new item!")
 }
 
 export const deleteTodo = async(todoId:number)=>{
@@ -23,3 +31,4 @@ export const deleteTodo = async(todoId:number)=>{
   .eq('id', todoId)
   if(error) throw new Error("Couldn't delete this item!")
 }
+

@@ -1,4 +1,4 @@
-export type TypeTodoFormDefaultValues = {
+export type TypeTodoFormValues = {
   tag: string
 	details: string
 	dateFinished: string
@@ -14,7 +14,7 @@ export const getFormDate = (date:Date)=>{
 	return `${dateVal.year}-${dateVal.month}-${dateVal.date}`	
 }
 
-export const utilsTodoFormDefaultValues: TypeTodoFormDefaultValues = {
+export const utilsTodoFormDefaultValues: TypeTodoFormValues = {
 	tag: "",
 	details: "",
 	dateFinished: getFormDate(new Date()),

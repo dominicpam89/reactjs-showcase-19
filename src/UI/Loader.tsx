@@ -41,7 +41,7 @@ export const LoaderDefault: React.FC<Props> = ({
 }
 
 type PropsLoaderError = {
-	error: Error
+	error: Error|null
 	justifyContent?: "justify-start"|"justify-end"|"justify-center"
 	alignItems?: "items-start"|"items-end"|"items-center"
 	headerClass?: string
@@ -51,7 +51,7 @@ export const LoaderError: React.FC<PropsLoaderError> = ({
 	error,
 	justifyContent = "justify-start",
 	alignItems = "items-start",
-	headerClass = "text-danger-dark-color",
+	headerClass = "text-danger-main-color",
 	contentClass = "text-danger-main-color",
 }) => {
 	return (
@@ -59,10 +59,10 @@ export const LoaderError: React.FC<PropsLoaderError> = ({
 			className={`flex flex-col space-y-1 ${justifyContent} ${alignItems}`}
 		>
 			<h1 className={`text-lg font-semibold ${headerClass}`}>
-				{error.name}
+				{error?.name}
 			</h1>
 			<p className={`text-xs font-light ${contentClass}`}>
-				{error.message}
+				{error?.message}
 			</p>
 		</div>
 	)

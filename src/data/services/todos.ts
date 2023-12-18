@@ -12,7 +12,7 @@ export const getTodos = async ()=>{
 }
 
 export const addTodo = async({tag,dateFinished,details,image}:TypeTodoFormValues)=>{
-  const { error } = await supabase
+  const { error, data } = await supabase
 		.from("todos")
 		.insert({
 			tag,
@@ -22,6 +22,7 @@ export const addTodo = async({tag,dateFinished,details,image}:TypeTodoFormValues
 			status: "active",
 		})
   if(error) throw new Error("500 Internal Error. Couldn't add new item!")
+  return data
 }
 
 export const deleteTodo = async(todoId:number)=>{

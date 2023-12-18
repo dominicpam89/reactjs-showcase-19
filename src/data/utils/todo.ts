@@ -28,8 +28,8 @@ export const utilsTodo_calcDueDate = (date:Date)=>{
 }
 
 
-type TypeSize = "default"|"sm"|"xs"
-export const utilsGetImage = (image:string, size:TypeSize="sm")=>{
+export type TypeImageSize = "default"|"sm"|"xs"
+export const utilsGetImage = (image:string, size:TypeImageSize="sm")=>{
 		const imageName = image.split("-")[0]
 		if(size!=="default") return `${imageName}-${size}.png`
 		else return `${imageName}.png`

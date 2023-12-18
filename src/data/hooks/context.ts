@@ -21,16 +21,6 @@ export const useHooksModal = () => {
 	return modalState
 }
 
-export const useHooksModalDeleteConfirmation = () => {
-	const [visible, setVisible] = useState(false)
-	const modalState = {
-		visibility: visible,
-		show: () => setVisible(true),
-		hide: () => setVisible(false),
-	}
-	return modalState
-}
-
 
 export const useHooksModalConfirmation = ()=>{
 	const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false)

@@ -5,7 +5,7 @@ import { ContextModal } from "./modal"
 
 export const ContextMain = createContext({
   theme: ContextTheme,
-  modal: ContextModal,
+  modalForm: ContextModal,
   modalConfirmation: {
     delete: ContextModal,
     failed: ContextModal,
@@ -15,11 +15,11 @@ export const ContextMain = createContext({
 
 const ContextMainProvider:React.FC<{children: React.ReactNode}> = ({children})=>{
     const theme = useHooksContextMain()
-    const modal = useHooksModal()
+    const modalForm = useHooksModal()
     const modalConfirmation = useHooksModalConfirmation()
     return <ContextMain.Provider value={{
       theme,
-      modal,
+      modalForm,
       modalConfirmation,
     }}>
       {children}

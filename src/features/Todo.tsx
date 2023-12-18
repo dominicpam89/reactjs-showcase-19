@@ -12,11 +12,11 @@ import { BsFillHddStackFill } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
 
 const BtnModal = () => {
-	const context = useContext(ContextMain)
+	const {modalForm} = useContext(ContextMain)
 	return (
 		<button
 			className="w-full py-4 rounded-lg text-info-main-color text-sm flex flex-row items-center justify-center space-x-2"
-			onClick={context.modal.show}
+			onClick={modalForm.show}
 		>
 			<UIReactIcon
 				icon={<BsFillHddStackFill />}
@@ -80,7 +80,7 @@ const Todos = () => {
 }
 
 export default function TodoPage() {
-	const context = useContext(ContextMain)
+	const {modalForm} = useContext(ContextMain)
 	const twClasses = {
 		container:
 			"p-10 w-full min-h-screen flex flex-col space-y-14 items-center bg-primary-dark-color",
@@ -89,7 +89,7 @@ export default function TodoPage() {
 	return (
 		<>
 			<AnimatePresence>
-				{context.modal.visibility && <TodoForm />}
+				{modalForm.visibility && <TodoForm />}
 			</AnimatePresence>
 			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />

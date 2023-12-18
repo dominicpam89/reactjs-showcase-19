@@ -25,7 +25,7 @@ export const useHooksGetTodos = ()=>{
 }
 
 export const useHooksAddTodo = ()=>{
-	const {modal} = useContext(ContextMain)
+	const {modalForm} = useContext(ContextMain)
 	const queryClient = useQueryClient()
 	const todoAdd = useMutation({
 		mutationFn: (todo:TypeTodoFormValues)=>addTodo(todo),
@@ -40,7 +40,7 @@ export const useHooksAddTodo = ()=>{
 			toast.dismiss("loading")
 			await queryClient.invalidateQueries({queryKey:["todos"]})
 			toast.success(`Successfullly added ${val.tag}!`)
-			modal.hide()
+			modalForm.hide()
 		}
 	})
 	return todoAdd

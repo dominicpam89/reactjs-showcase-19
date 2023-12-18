@@ -13,7 +13,7 @@ import { ContextMain } from "../../data/context/main"
 import { useHooksAddTodo } from "../../data/hooks/query"
 
 const TodoForm = () => {
-	const {modal} = useContext(ContextMain)
+	const {modalForm} = useContext(ContextMain)
 	const { register, handleSubmit, resetField, setValue, formState:{errors}, watch, trigger } = useForm({defaultValues, mode:"all"})
 	const {mutate:addTodo, isPending:isQueryPending, error:queryError, isError:isQueryError} = useHooksAddTodo()
 	const onSubmit = (data: TypeTodoFormValues) => {
@@ -24,11 +24,11 @@ const TodoForm = () => {
 		resetField("details")
 		resetField("image")
 		setValue("dateFinished",getFormDate(new Date()))
-		modal.hide()
+		modalForm.hide()
 	}
 
 	return (
-		<UIModal padding="sm" onClick={modal.hide}>
+		<UIModal padding="sm" onClick={modalForm.hide}>
 			<form
 				className="w-full p-10 flex flex-col space-y-5 bg-primary-main-contrast"
 				onClick={(e) => e.stopPropagation()}

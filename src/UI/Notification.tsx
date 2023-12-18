@@ -15,7 +15,8 @@ export const UINotificationPlacement = ()=>{
 				gutter={8}
 				containerClassName={twClasses.container}
 				toastOptions={{
-					duration: 3000,
+					duration: 2500,
+					className: "text-xs md:text-sm"
 				}}
 			/>
 	)

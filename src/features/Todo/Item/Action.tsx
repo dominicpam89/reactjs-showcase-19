@@ -1,5 +1,5 @@
 import { UseMutationResult } from "@tanstack/react-query"
-import { TypeTodo } from "../../../data/types/query"
+import { TypeQueryUpdateTodo, TypeTodo } from "../../../data/types/query"
 import { useContext } from "react"
 import { ContextMain } from "../../../data/context/main"
 import { useSearchParams } from "react-router-dom"
@@ -12,17 +12,26 @@ import {
 } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
 import UIDeleteConfirmation from "../../../UI/Modal/DeleteConfirmation"
+import UIUpdateConfirmation from "../../../UI/Modal/UpdateConfirmation"
 
 type PropsActions = {
 	todo: TypeTodo
 	todoDelete: UseMutationResult<void, Error, TypeTodo, void>
+	todoUpdate: UseMutationResult<void, Error, TypeQueryUpdateTodo, void>
 }
 
-const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete }) => {
-	const { modalDeleteConfirmation: modalDelete } = useContext(ContextMain)
+const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate }) => {
+	// Modal
+	const { modalConfirmation } = useContext(ContextMain)
+	const {delete:modalDelete, failed:modalFailed, completed:modalCompleted} = modalConfirmation
+
+	// What to display based on mode==="active"||"completed"||"failed"
 	const [searchParams, _] = useSearchParams()
 	const mode = searchParams.get("mode")
-	const isTakingAction = todoDelete.isPending
+
+	// status of query
+	const isTakingAction = todoDelete.isPending || todoUpdate.isPending
+
 	const btnDelete = (
 		<UIIconButton
 			key="btnDelete"
@@ -41,7 +50,7 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete }) => {
 			text="Failed"
 			colorTwClass="text-warning-light-color"
 			customClass="saturate-[40%] text-xxs"
-			onClick={() => console.log("Failed is clicked")}
+			onClick={modalFailed.show}
 			disabled={isTakingAction}
 		/>
 	)
@@ -52,7 +61,7 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete }) => {
 			text="Completed"
 			colorTwClass="text-success-light-color"
 			customClass="saturate-[40%] text-xxs"
-			onClick={() => console.log("Completed is clicked")}
+			onClick={modalCompleted.show}
 			disabled={isTakingAction}
 		/>
 	)
@@ -75,11 +84,28 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete }) => {
 			: [btnDelete, btnFailed, btnCompleted, btnEdit]
 	return (
 		<>
+			{/* Modal Confirmation of any Actions */}
 			<AnimatePresence>
 				{modalDelete.visibility && (
-					<UIDeleteConfirmation onDelete={() => todoDelete.mutate(todo)} />
+					<UIDeleteConfirmation
+						key="delete-confirmation"
+						onDelete={() => todoDelete.mutate(todo)}
+					/>
 				)}
+				{modalFailed.visibility && <UIUpdateConfirmation 
+					key="failed-confirmation"
+					modalHide={()=>modalFailed.hide()}
+					onUpdate={()=>todoUpdate.mutate({status:"failed", todoId:todo.id})}
+					title="Set todo activity as failed?"
+				/>}
+				{modalCompleted.visibility && <UIUpdateConfirmation 
+					key="completed confirmation"
+					modalHide={()=>modalCompleted.hide()}
+					onUpdate={()=>todoUpdate.mutate({status:"completed", todoId:todo.id})}
+					title="Set todo activity as completed?"
+				/>}
 			</AnimatePresence>
+			{/* Main Content: Action Buttons */}
 			{content.map((item) => item)}
 		</>
 	)

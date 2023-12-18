@@ -5,6 +5,8 @@ import { getActivityImages } from "../services/supabase-storage"
 import { getTodos, addTodo, deleteTodo } from "../services/todos"
 import { toast } from "react-hot-toast"
 import { TypeImageSize } from "../services/supabase-storage"
+import { useContext } from "react"
+import { ContextMain } from "../context/main"
 
 export const useHooksGetActivityImages = (size:TypeImageSize)=>{
 	const images = useQuery({
@@ -23,20 +25,22 @@ export const useHooksGetTodos = ()=>{
 }
 
 export const useHooksAddTodo = ()=>{
+	const {modal} = useContext(ContextMain)
 	const queryClient = useQueryClient()
 	const todoAdd = useMutation({
 		mutationFn: (todo:TypeTodoFormValues)=>addTodo(todo),
 		onMutate: (data)=>{
-			toast.loading(`Adding ${data.tag} to database`,{id:"loading"})
+			toast.loading(`Adding ${data.tag}`,{id:"loading"})
 		},
 		onError: (error)=>{
 			toast.dismiss("loading")
 			toast.error(error.message)
 		},
-		onSuccess:(_, val)=>{
+		onSuccess:async (_,val)=>{
 			toast.dismiss("loading")
-			toast.success(`Successfullly added ${val.tag} into database!`)
-			queryClient.invalidateQueries({queryKey:["todos"]})
+			await queryClient.invalidateQueries({queryKey:["todos"]})
+			toast.success(`Successfullly added ${val.tag}!`)
+			modal.hide()
 		}
 	})
 	return todoAdd
@@ -47,7 +51,7 @@ export const useHooksDeleteTodo = ()=>{
 	const todoDelete = useMutation({
 		mutationFn: (todo:TypeTodo)=>deleteTodo(todo.id),
 		onMutate: (data)=>{
-			toast.loading(`Delete ${data.tag} from database`,{id:"loading"})
+			toast.loading(`Deleting ${data.tag}`,{id:"loading"})
 		},
 		onError: (error)=>{
 			toast.dismiss("loading")
@@ -55,7 +59,7 @@ export const useHooksDeleteTodo = ()=>{
 		},
 		onSuccess: (_,val)=>{
 			toast.dismiss("loading")
-			toast.success(`Successfullly deleted ${val.tag} from database!`)
+			toast.success(`Successfullly deleted ${val.tag}!`)
 			queryClient.invalidateQueries({queryKey:["todos"]})
 		}
 	})

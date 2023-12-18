@@ -1,5 +1,10 @@
 import { useForm } from "react-hook-form"
-import { TypeTodoFormValues, utilsTodoFormDefaultValues as defaultValues, getFormDate } from "../../data/utils/todoForm"
+import {
+	TypeTodoFormValues,
+	utilsTodoFormDefaultValues as defaultValues,
+	getFormDate,
+	utilsGetTodoFormDefaultValuesEdit as defaultValuesEdit,
+} from "../../data/utils/todoForm"
 import UIModal from "../../UI/Modal"
 import UIInputField from "../../UI/Form/InputField"
 import UIInputFieldArea from "../../UI/Form/InputFieldArea"
@@ -11,10 +16,25 @@ import { LoaderError } from "../../UI/Loader"
 import { useContext } from "react"
 import { ContextMain } from "../../data/context/main"
 import { useHooksAddTodo } from "../../data/hooks/query"
+import { TypeTodo } from "../../data/types/query"
 
-const TodoForm = () => {
+type Props = {
+	todo?: TypeTodo
+}
+const TodoForm:React.FC<Props> = ({todo=undefined}) => {
 	const {modalForm} = useContext(ContextMain)
-	const { register, handleSubmit, resetField, setValue, formState:{errors}, watch, trigger } = useForm({defaultValues, mode:"all"})
+	const {
+		register,
+		handleSubmit,
+		resetField,
+		setValue,
+		formState: { errors },
+		watch,
+		trigger,
+	} = useForm({
+		defaultValues: todo ? defaultValuesEdit(todo) : defaultValues,
+		mode: "all",
+	})
 	const {mutate:addTodo, isPending:isQueryPending, error:queryError, isError:isQueryError} = useHooksAddTodo()
 	const onSubmit = (data: TypeTodoFormValues) => {
 		addTodo(data)

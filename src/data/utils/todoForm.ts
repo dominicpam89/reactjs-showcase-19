@@ -1,3 +1,5 @@
+import { TypeTodo } from "../types/query"
+
 export type TypeTodoFormValues = {
   tag: string
 	details: string
@@ -19,6 +21,15 @@ export const utilsTodoFormDefaultValues: TypeTodoFormValues = {
 	details: "",
 	dateFinished: getFormDate(new Date()),
 	image: "",
+}
+
+export const utilsGetTodoFormDefaultValuesEdit: (todo:TypeTodo)=>TypeTodoFormValues = (todo)=>{
+	return {
+		tag: todo.tag,
+		details: todo.details,
+		dateFinished: getFormDate(new Date(todo.dateFinished)),
+		image: todo.image
+	}
 }
 
 export const utilsGetInputTwClassesColor = (error: string|undefined) => {

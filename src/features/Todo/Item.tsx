@@ -11,6 +11,12 @@ import {
 	utilsGetImage as getImage,
 } from "../../data/utils/todo"
 import UIIconButton from "../../UI/Buttons/IconButton"
+import { useHooksDeleteTodo } from "../../data/hooks/query"
+import { LoaderError } from "../../UI/Loader"
+import UIDeleteConfirmation from "../../UI/Modal/DeleteConfirmation"
+import { useContext } from "react"
+import { ContextMain } from "../../data/context/main"
+import { AnimatePresence } from "framer-motion"
 
 type PropsImage = {
 	image: string
@@ -63,9 +69,16 @@ const Detail: React.FC<PropsDetail> = ({ tag, details, date }) => {
 	)
 }
 
-const Actions = () => {
+type PropsActions = {
+	todo: TypeTodo
+}
+
+const Actions:React.FC<PropsActions> = ({todo}) => {
+	const {modalDeleteConfirmation:modalDelete} = useContext(ContextMain)
 	const [searchParams, _] = useSearchParams()
+	const {mutate:deleteTodo, isPending:isDeletePending} = useHooksDeleteTodo()
 	const mode = searchParams.get("mode")
+	const isTakingAction = isDeletePending
 	const btnDelete = (
 		<UIIconButton
 			key="btnDelete"
@@ -73,7 +86,9 @@ const Actions = () => {
 			text="Delete"
 			colorTwClass="text-danger-light-color"
 			customClass="saturate-[40%] text-xxs"
-			onClick={() => console.log("delete todo")}
+			onClick={()=>modalDelete.show()}
+			disabled={isTakingAction}
+			
 		/>
 	)
 	const btnFailed = (
@@ -84,6 +99,7 @@ const Actions = () => {
 			colorTwClass="text-warning-light-color"
 			customClass="saturate-[40%] text-xxs"
 			onClick={() => console.log("Failed is clicked")}
+			disabled={isTakingAction}
 		/>
 	)
 	const btnCompleted = (
@@ -94,6 +110,7 @@ const Actions = () => {
 			colorTwClass="text-success-light-color"
 			customClass="saturate-[40%] text-xxs"
 			onClick={() => console.log("Completed is clicked")}
+			disabled={isTakingAction}
 		/>
 	)
 	const btnEdit = (
@@ -103,6 +120,7 @@ const Actions = () => {
 			text={"Edit"}
 			customClass="text-xxs"
 			onClick={() => console.log("Edit clicked")}
+			disabled={isTakingAction}
 		/>
 	)
 	let content = [btnDelete, btnFailed, btnCompleted, btnEdit]
@@ -112,10 +130,17 @@ const Actions = () => {
 			: mode === "failed"
 			? [btnDelete, btnEdit]
 			: [btnDelete, btnFailed, btnCompleted, btnEdit]
-	return content.map((item) => item)
+	return <>
+		<AnimatePresence>{modalDelete.visibility && <UIDeleteConfirmation onDelete={()=>deleteTodo(todo)} />}</AnimatePresence>
+		{content.map((item) => item)}
+	</>
 }
 
 const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
+	const actionDelete = useHooksDeleteTodo()
+	const errors = {
+		delete: <LoaderError error={actionDelete.error} justifyContent="justify-center" alignItems="items-center" />
+	}
 	return (
 		<>
 			<div
@@ -133,8 +158,9 @@ const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
 						date={todo.dateFinished}
 					/>
 				</div>
+				{actionDelete.isError && errors.delete}
 				<div id="row-2" className="flex justify-around">
-					<Actions />
+					<Actions todo={todo} />
 				</div>
 			</div>
 		</>

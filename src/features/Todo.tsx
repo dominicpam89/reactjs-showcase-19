@@ -56,14 +56,18 @@ const Todos = () => {
 	const [searchParam] = useSearchParams()
 	const mode = searchParam.get("mode")
 	const { data, error, isError, isLoading } = useHooksGetTodos()
+	let content:any = null
 	if (!isLoading && data){
 		const filteredData = data.filter(todo=>todo.status===mode)
-		return filteredData.map((todo) => {
-			return <TodoItem key={todo.id} todo={todo} />
-		})
+		if (filteredData.length === 0)
+			content = <p className="text-primary-main-contrast/80 text-center text-sm">No activity in this category!</p>
+		else 
+			content = filteredData.map((todo) => {
+				return <TodoItem key={todo.id} todo={todo} />
+			})
 	}
 	else if (isError)
-		return (
+		content =  (
 			<LoaderError
 				error={error}
 				headerClass="text-danger-light-color"
@@ -72,11 +76,12 @@ const Todos = () => {
 			/>
 		)
 	else if (isLoading)
-		return (
+		content = (
 			<div className="w-full py-8 flex justify-center">
 				<LoaderDefault scene="dark" />
 			</div>
 		)
+	return content
 }
 
 export default function TodoPage() {

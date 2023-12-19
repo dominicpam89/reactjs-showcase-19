@@ -1,8 +1,8 @@
 import { useHooksGetActivityImages } from "../../../data/hooks/query"
 import { LoaderDefault, LoaderError } from "../../../UI/Loader"
 import { Variants, motion } from "framer-motion"
-import TodoImage from "./Image"
 import { useState } from "react"
+import TodoImage from "./Image"
 
 type Props = {
 	inputError: string|undefined
@@ -46,11 +46,11 @@ const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError, existedImag
 				>
 					{data.map((image) => (
 						<motion.div
-							id="imageContainer"
+							id="image-container"
+							className="relative"
 							key={image.id}
 							variants={motionVar.imageContainer}
 							whileTap={{ rotateX: 180 }}
-							className="relative"
 							onClick={() => {
 								onImageSelect(image.name)
 								setSelectedImage(image.id)

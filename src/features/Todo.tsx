@@ -2,14 +2,14 @@ import { useState, useContext, useEffect } from "react"
 import { ContextMain } from "../data/context/main"
 import { useHooksGetTodos } from "../data/hooks/query"
 import { useSearchParams } from "react-router-dom"
+import { LoaderDefault, LoaderError } from "../UI/Loader"
+import { BsFillHddStackFill } from "react-icons/bs"
+import { AnimatePresence } from "framer-motion"
 import TodoBrand from "./Todo/Brand"
 import TodoItem from "./Todo/Item"
 import TodoForm from "./Todo/Form"
 import TodoTab from "./Todo/Tab"
 import UIReactIcon from "../UI/ReactIcon"
-import { LoaderDefault, LoaderError } from "../UI/Loader"
-import { BsFillHddStackFill } from "react-icons/bs"
-import { AnimatePresence } from "framer-motion"
 
 const BtnModal = () => {
 	const {modalForm} = useContext(ContextMain)
@@ -59,7 +59,7 @@ const Todos = () => {
 	let content:any = null
 	if (!isLoading && data){
 		const filteredData = data.filter(todo=>todo.status===mode)
-		if (filteredData.length === 0)
+		if (filteredData.length === 0 || !filteredData)
 			content = <p className="text-primary-main-contrast/80 text-center text-sm">No activity in this category!</p>
 		else 
 			content = filteredData.map((todo) => {
@@ -94,7 +94,7 @@ export default function TodoPage() {
 	return (
 		<>
 			<AnimatePresence>
-				{modalForm.visibility && <TodoForm />}
+				{modalForm.visibility && <TodoForm onClose={()=>{}} />}
 			</AnimatePresence>
 			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />

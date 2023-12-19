@@ -63,7 +63,7 @@ const TodoForm:React.FC<Props> = ({todo=undefined, todoUpdate, onClose}) => {
 				onClick={(e) => e.stopPropagation()}
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				{isQueryError && <LoaderError error={queryError} />}
+				{isQueryError || todoUpdate?.isError && <LoaderError error={queryError} />}
 				<UIInputField
 					id="tag"
 					label="Todo Title"
@@ -111,8 +111,8 @@ const TodoForm:React.FC<Props> = ({todo=undefined, todoUpdate, onClose}) => {
 					id="form-action"
 					className="w-full pt-4 flex flex-row space-x-2"
 				>
-					<ButtonCancel onClick={todo?onClose:cancelForm} disabled={isQueryPending} />
-					<ButtonSubmit disabled={isQueryPending} />
+					<ButtonCancel onClick={todo?onClose:cancelForm} disabled={isQueryPending||todoUpdate?.isPending} />
+					<ButtonSubmit disabled={isQueryPending||todoUpdate?.isPending} />
 				</div>
 			</form>
 		</UIModal>

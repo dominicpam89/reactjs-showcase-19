@@ -36,7 +36,7 @@ const TodoImage: React.FC<PropsImage> = ({
 				></motion.div>
 			)}
 			{existedImage && existedImage?.slice(0,3)===imageFile.slice(0,3) && <motion.div
-					className="absolute top-0 left-0 w-full h-full rounded-full outline outline-3 outline-offset-2 outline-info-main-color/50 bg-info-main-color/50"
+					className="absolute top-0 left-0 w-full h-full rounded-full outline outline-3 outline-offset-2 outline-success-main-color/50 bg-success-main-color/50"
 					variants={{
 						hidden: {opacity: 0, scale: 0},
 						visible: {opacity: 1, scale: "100%"}

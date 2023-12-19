@@ -67,3 +67,27 @@ export const LoaderError: React.FC<PropsLoaderError> = ({
 		</div>
 	)
 }
+
+
+export const LoaderSpinner: React.FC<Props> = ({
+	opacity = "opacity-100",
+	scene = "dark",
+	width = "sm",
+}) => {
+	const sceneColor = scene === "dark" ? "contrast" : "color"
+	const size =
+		width === "sm"
+			? "w-8 h-8 border-[3px]"
+			: width === "md"
+			? "w-16 h-16 border-[6px]"
+			: "w-24 h-24 border-[12px]"
+	return (
+		<>
+			<span
+				className={`
+			relative inline-block rounded-full box-border animate-loaderSpin border-dotted border-primary-main-${sceneColor} ${size} ${opacity}
+		`}
+			></span>
+		</>
+	)
+}

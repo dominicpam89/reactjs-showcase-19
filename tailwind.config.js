@@ -106,11 +106,16 @@ export default {
 			},
 			animation: {
 				loaderDefault: "loaderDefault 400ms ease-in infinite alternate",
+				loaderSpin: "loaderSpin 2s linear infinite"
 			},
 			keyframes: {
 				loaderDefault: {
 					"100%": { transform: "scaleY(0)" },
 				},
+				loaderSpin: {
+					"0%": { transform: "rotate(0deg)"},
+					"100%": { transform: "rotate(360deg)"}
+				}
 			},
 		},
 	},

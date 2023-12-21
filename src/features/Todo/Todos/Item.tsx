@@ -1,11 +1,11 @@
-import { TypeTodo } from "../../data/types/query"
-import { useHooksDeleteTodo, useHooksUpdateStatusTodo, useHooksUpdateTodo } from "../../data/hooks/query"
-import { LoaderDefault, LoaderError } from "../../UI/Loader"
-import TodoItemAction from "./Item/Action"
-import TodoItemImage from "./Item/Image"
-import TodoItemDetail from "./Item/Detail"
+import { TypeTodo } from "../../../data/types/query"
+import { useHooksDeleteTodo, useHooksUpdateStatusTodo, useHooksUpdateTodo } from "../../../data/hooks/query"
+import { LoaderDefault, LoaderError } from "../../../UI/Loader"
+import TodoItemAction from "../Item/Action"
+import TodoItemImage from "../Item/Image"
+import TodoItemDetail from "../Item/Detail"
 import { useContext } from "react"
-import { ContextMain } from "../../data/context/main"
+import { ContextMain } from "../../../data/context/main"
 
 const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
 	const {theme} = useContext(ContextMain)

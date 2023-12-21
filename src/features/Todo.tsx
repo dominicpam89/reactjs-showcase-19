@@ -1,92 +1,12 @@
-import { useState, useContext, useEffect, lazy, Suspense } from "react"
+import { useContext, lazy, Suspense } from "react"
 import { ContextMain } from "../data/context/main"
-import { useHooksGetTodos } from "../data/hooks/query"
-import { useSearchParams } from "react-router-dom"
-import { LoaderDefault, LoaderError } from "../UI/Loader"
-import { BsFillHddStackFill } from "react-icons/bs"
+import { LoaderDefault } from "../UI/Loader"
 import { AnimatePresence } from "framer-motion"
 import TodoBrand from "./Todo/Brand"
-import TodoItem from "./Todo/Item"
 const TodoForm = lazy(()=>import("./Todo/Form"))
-import TodoTab from "./Todo/Tab"
-import UIReactIcon from "../UI/ReactIcon"
-
-const BtnModal = () => {
-	const {theme,modalForm} = useContext(ContextMain)
-	const isThemeInverted = theme.current.includes("invert")
-	return (
-		<button
-			className={`
-				w-full py-4 rounded-lg text-sm flex flex-row items-center justify-center space-x-2
-				${isThemeInverted?"text-primary-main-contrast":"text-info-main-color"}
-			`}
-			onClick={modalForm.show}
-		>
-			<UIReactIcon
-				icon={<BsFillHddStackFill />}
-				value={{ className: "h-4" }}
-			/>
-			<span>Add Todo</span>
-		</button>
-	)
-}
-
-type Select = "active" | "completed" | "failed"
-const selectedTab: Select[] = ["active", "completed", "failed"]
-const Tabs = () => {
-	const [_, setSearchParams] = useSearchParams()
-	const [select, setSelect] = useState<Select>("active")
-	useEffect(()=>{
-		setSearchParams("mode=active")
-	},[])
-	return (
-		<div id="tabs" className="w-full flex space-around">
-			{selectedTab.map((tab) => (
-				<TodoTab
-					key={tab}
-					tab={tab}
-					onClick={() => {
-						setSelect(tab)
-						setSearchParams(`mode=${tab}`)
-					}}
-					select={select}
-				/>
-			))}
-		</div>
-	)
-}
-
-const Todos = () => {
-	const [searchParam] = useSearchParams()
-	const mode = searchParam.get("mode")
-	const { data, error, isError, isLoading } = useHooksGetTodos()
-	let content:any = null
-	if (!isLoading && data){
-		const filteredData = data.filter(todo=>todo.status===mode)
-		if (filteredData.length === 0 || !filteredData)
-			content = <p className="text-primary-main-contrast/80 text-center text-sm">No activity in this category!</p>
-		else 
-			content = filteredData.map((todo) => {
-				return <TodoItem key={todo.id} todo={todo} />
-			})
-	}
-	else if (isError)
-		content =  (
-			<LoaderError
-				error={error}
-				headerClass="text-danger-light-color"
-				contentClass="text-danger-light-color"
-				alignItems="items-center"
-			/>
-		)
-	else if (isLoading)
-		content = (
-			<div className="w-full py-8 flex justify-center">
-				<LoaderDefault scene="dark" />
-			</div>
-		)
-	return content
-}
+import TodoBtnModal from "./Todo/BtnModal"
+import TodoTabs from "./Todo/Tabs"
+import TodoTodos from "./Todo/Todos"
 
 const TodoPage=()=>{
 	const {theme,modalForm} = useContext(ContextMain)
@@ -110,9 +30,9 @@ const TodoPage=()=>{
 			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />
 				<div id="app" className={twClasses.app}>
-					<BtnModal />
-					<Tabs />
-					<Todos />
+					<TodoBtnModal />
+					<TodoTabs />
+					<TodoTodos />
 				</div>
 			</div>
 		</>

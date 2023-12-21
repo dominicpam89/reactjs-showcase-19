@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { useContext } from "react"
-import { ContextMain } from "../../data/context/main"
+import { ContextMain } from "../../../data/context/main"
 
 type Select = "active" | "completed" | "failed"
 interface Props

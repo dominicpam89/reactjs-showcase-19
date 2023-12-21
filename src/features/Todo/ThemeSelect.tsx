@@ -2,6 +2,9 @@ import { TypeThemeSelection } from "../../data/types/context"
 import ThemeSelectItem from "./ThemeSelect/Item"
 import ThemeSelectButton from "./ThemeSelect/Button"
 import ThemeSelectItemContainer from "./ThemeSelect/ItemContainer"
+import { useContext } from "react"
+import { ContextMain } from "../../data/context/main"
+import { AnimatePresence } from "framer-motion"
 
 export type ThemeOption = { theme: TypeThemeSelection; text: string }
 const themeOptions: ThemeOption[] = [
@@ -12,14 +15,19 @@ const themeOptions: ThemeOption[] = [
 ]
 
 const TodoThemeSelect = () => {
+	const { themeSelection } = useContext(ContextMain)
 	return (
 		<div className="relative w-full rounded-lg text-sm">
-			<ThemeSelectButton />
-			<ThemeSelectItemContainer>
-				{themeOptions.map((opt) => (
-						<ThemeSelectItem item={opt} key={opt.text} />
-					))}
-			</ThemeSelectItemContainer>
+			<AnimatePresence>
+				<ThemeSelectButton key="button" themeOptions={themeOptions} />
+				{themeSelection.visible && (
+					<ThemeSelectItemContainer key="items">
+						{themeOptions.map((opt) => (
+							<ThemeSelectItem item={opt} key={opt.text} />
+						))}
+					</ThemeSelectItemContainer>
+				)}
+			</AnimatePresence>
 		</div>
 	)
 }

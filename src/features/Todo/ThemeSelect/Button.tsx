@@ -1,20 +1,43 @@
-import { useContext } from "react"
+import { useContext, useMemo } from "react"
 import { ContextMain } from "../../../data/context/main"
 import { BsDiscFill } from "react-icons/bs"
 import UIReactIcon from "../../../UI/ReactIcon"
+import { motion } from "framer-motion"
+import { ThemeOption } from "../ThemeSelect"
 
-const ThemeSelectButton = () => {
-	const { theme } = useContext(ContextMain)
+type Props = {
+	themeOptions: ThemeOption[]
+}
+
+const ThemeSelectButton: React.FC<Props> = ({ themeOptions }) => {
+	const { theme, themeSelection } = useContext(ContextMain)
+	const selectedTheme = useMemo(
+		() => themeOptions.find((opt) => opt.theme === theme.current),
+		[themeOptions, theme]
+	)
 	const isThemeInverted = theme.current.includes("invert")
+	const btnText = isThemeInverted
+		? "text-primary-main-contrast"
+		: "text-info-main-color"
 	return (
 		<button
 			className={`
-					w-full py-4 flex flex-row items-center justify-center space-x-2 transition-all duration-300
-					${isThemeInverted ? "text-primary-main-contrast" : "text-info-main-color"}
+					relative w-full py-4 flex flex-row items-center justify-center space-x-2
+					${btnText}
 				`}
+			onClick={() => themeSelection.toggle()}
 		>
-			<UIReactIcon icon={<BsDiscFill />} value={{ className: "h-4" }} />
-			<span>Theme Select</span>
+			{/* Icon */}
+			<motion.span
+				initial={{ rotateZ: themeSelection.visible ? 0 : -180 }}
+				animate={{ rotateZ: themeSelection.visible ? 180 : 0 }}
+				exit={{ rotateZ: themeSelection.visible ? 0 : -180 }}
+			>
+				<UIReactIcon icon={<BsDiscFill />} value={{ className: "h-4" }} />
+			</motion.span>
+
+			{/* Text */}
+			<span>{selectedTheme?.text}</span>
 		</button>
 	)
 }

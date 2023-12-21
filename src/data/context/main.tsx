@@ -1,20 +1,23 @@
 import { createContext } from "react"
-import { useHooksContextMain, useHooksModal } from "../hooks/context"
-import { ContextTheme } from "./theme"
+import { useHooksContextTheme, useHooksContextThemeSelect, useHooksModal } from "../hooks/context"
+import { ContextTheme, ContextThemeSelection } from "./theme"
 import { ContextModal } from "./modal"
 
 export const ContextMain = createContext({
   theme: ContextTheme,
+  themeSelection: ContextThemeSelection,
   modalForm: ContextModal,
   modalFormUpdate: ContextModal,
 })
 
 const ContextMainProvider:React.FC<{children: React.ReactNode}> = ({children})=>{
-    const theme = useHooksContextMain()
+    const theme = useHooksContextTheme()
+    const themeSelection = useHooksContextThemeSelect()
     const modalForm = useHooksModal()
     const modalFormUpdate = useHooksModal()
     return <ContextMain.Provider value={{
       theme,
+      themeSelection,
       modalForm,
       modalFormUpdate,
     }}>

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext, useEffect, lazy, Suspense } from "react"
 import { ContextMain } from "../data/context/main"
 import { useHooksGetTodos } from "../data/hooks/query"
 import { useSearchParams } from "react-router-dom"
@@ -7,7 +7,7 @@ import { BsFillHddStackFill } from "react-icons/bs"
 import { AnimatePresence } from "framer-motion"
 import TodoBrand from "./Todo/Brand"
 import TodoItem from "./Todo/Item"
-import TodoForm from "./Todo/Form"
+const TodoForm = lazy(()=>import("./Todo/Form"))
 import TodoTab from "./Todo/Tab"
 import UIReactIcon from "../UI/ReactIcon"
 
@@ -84,7 +84,7 @@ const Todos = () => {
 	return content
 }
 
-export default function TodoPage() {
+const TodoPage=()=>{
 	const {modalForm} = useContext(ContextMain)
 	const twClasses = {
 		container:
@@ -94,7 +94,11 @@ export default function TodoPage() {
 	return (
 		<>
 			<AnimatePresence>
-				{modalForm.visibility && <TodoForm onClose={()=>{}} />}
+				{modalForm.visibility && (
+					<Suspense fallback={<LoaderDefault scene="dark" />}>
+						<TodoForm onClose={() => {}} />
+					</Suspense>
+				)}
 			</AnimatePresence>
 			<div id="container" className={twClasses.container}>
 				<TodoBrand className="w-auto h-16" />
@@ -107,3 +111,4 @@ export default function TodoPage() {
 		</>
 	)
 }
+export default TodoPage

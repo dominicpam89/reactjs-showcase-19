@@ -19,7 +19,6 @@ const motionVar: MotionVar = {
 			opacity: 1,
 			transition: {
 				duration: 0.24,
-				delay: 0.12,
 				staggerChildren: 0.12,
 			},
 		},

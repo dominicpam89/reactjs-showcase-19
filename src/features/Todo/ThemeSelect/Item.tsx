@@ -20,7 +20,7 @@ const twClasses = {
 
 const listVariant: Variants = {
 	hidden: {
-		x: 15,
+		x: 30,
 		opacity: 0,
 	},
 	visible: {
@@ -43,7 +43,12 @@ const ItemList: React.FC<ItemListProps> = ({
 	className,
 }) => {
 	return (
-		<motion.li variants={listVariant} className={className} onClick={onItemClick}>
+		<motion.li
+			variants={listVariant}
+			exit={{ x: 0, opacity: 1 }}
+			className={className}
+			onClick={onItemClick}
+		>
 			<span>{item.text}</span>
 			{children}
 		</motion.li>

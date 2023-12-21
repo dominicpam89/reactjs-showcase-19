@@ -1,5 +1,3 @@
-import { useContext } from "react"
-import { ContextMain } from "../../data/context/main"
 import { useNavigate } from "react-router-dom"
 
 type Props = {
@@ -7,12 +5,7 @@ type Props = {
 }
 
 const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
-	const context = useContext(ContextMain)
-	const logoSrc =
-		(context.theme.current === "theme-default" ||
-		context.theme.current === "theme-earth")
-			? "/logo/logo-white-sm.png"
-			: "/logo/logo-black-sm.png"
+	const logoSrc = "/logo/logo-white-sm.png"
 	const navigate = useNavigate()
 
 	const twClasses = {
@@ -21,7 +14,7 @@ const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 		heading: `text-lg font-light text-primary-main-contrast`,
 		title: `text-4xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
 		btnAbout: `w-full px-4 py-2 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,
-		btnDemo: `w-full px-4 py-2 rounded-md bg-gradient-to-br from-primary-main-color to-danger-main-color text-md text-primary-main-contrast`,
+		btnDemo: `w-full px-4 py-2 rounded-md bg-gradient-to-br from-primary-main-color to-danger-dark-color text-md text-primary-main-contrast`,
 	}
 
 	return (

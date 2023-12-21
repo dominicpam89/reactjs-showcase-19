@@ -1,14 +1,5 @@
-import { useContext } from "react"
-import { ContextMain } from "../../../data/context/main"
-
 export default function Section3_Brand(){
-	const context = useContext(ContextMain)
-	const logoSrc =
-		context.theme.current === "theme-default" ||
-		context.theme.current === "theme-earth"
-			? "/logo/logo-white-sm.png"
-			: "/logo/logo-black-sm.png"
-
+	const logoSrc = "/logo/logo-white-sm.png"
 	const twClasses = {
 		container: `flex flex-row space-x-5 items-center justify-center`,
 		logo: `h-14 w-auto opacity-80`,

@@ -61,7 +61,7 @@ const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError, existedImag
 					variants={motionVar.imageListContainer}
 					initial="hidden"
 					animate="visible"
-					exit="hidden"
+					exit="visible"
 					transition={{ staggerChildren: 0.1 }}
 				className="grid grid-cols-4 gap-x-2 gap-y-2"
 				>

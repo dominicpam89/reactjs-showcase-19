@@ -1,4 +1,4 @@
-export type TypeThemeSelection = "theme-default" | "theme-relax" | "theme-earth"
+export type TypeThemeSelection = "theme-default" | "theme-relax" | "theme-default-invert" | "theme-relax-invert"
 
 export type TypeContextTheme = {
 	current: TypeThemeSelection,

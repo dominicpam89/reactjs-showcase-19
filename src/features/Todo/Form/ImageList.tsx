@@ -1,8 +1,9 @@
 import { useHooksGetActivityImages } from "../../../data/hooks/query"
 import { LoaderDefault, LoaderError } from "../../../UI/Loader"
 import { Variants, motion } from "framer-motion"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import TodoImage from "./Image"
+import { ContextMain } from "../../../data/context/main"
 
 type Props = {
 	inputError: string|undefined
@@ -29,12 +30,32 @@ const motionVar:MotionVar= {
 
 
 const TodoImageList: React.FC<Props> = ({ onImageSelect, inputError, existedImage }) => {
+	const isThemeInverted = useContext(ContextMain).theme.current.includes("invert")
+	const twClasses = {
+		normal:{
+			default: "text-primary-main-color/50",
+			inverted: "text-primary-main-contrast/50"
+		},
+		error:{
+			default: "text-danger-main-color/90",
+			inverted: "text-warning-main-contrast/90",
+		}
+	}
+	let headingClass
+	if(inputError){
+		if(isThemeInverted) headingClass = twClasses.error.inverted
+		else headingClass = twClasses.error.default
+	}
+	else{
+		if(isThemeInverted) headingClass = twClasses.normal.inverted
+		else headingClass = twClasses.normal.default
+	}
 	const [selectedImage, setSelectedImage] = useState("")
 	const { data, error, isError, isLoading } = useHooksGetActivityImages("xs")
 	if (data && !isLoading) {
 		return (
 			<div className="flex flex-col space-y-2">
-				<h4 className={`text-sm ${inputError?"text-danger-main-color/90":"text-primary-main-color/50"}`}>Select image</h4>
+				<h4 className={`text-sm ${headingClass}`}>Select image</h4>
 				<motion.div
 					id="imageList-container"
 					variants={motionVar.imageListContainer}

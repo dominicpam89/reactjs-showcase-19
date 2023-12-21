@@ -12,10 +12,14 @@ import TodoTab from "./Todo/Tab"
 import UIReactIcon from "../UI/ReactIcon"
 
 const BtnModal = () => {
-	const {modalForm} = useContext(ContextMain)
+	const {theme,modalForm} = useContext(ContextMain)
+	const isThemeInverted = theme.current.includes("invert")
 	return (
 		<button
-			className="w-full py-4 rounded-lg text-info-main-color text-sm flex flex-row items-center justify-center space-x-2"
+			className={`
+				w-full py-4 rounded-lg text-sm flex flex-row items-center justify-center space-x-2
+				${isThemeInverted?"text-primary-main-contrast":"text-info-main-color"}
+			`}
 			onClick={modalForm.show}
 		>
 			<UIReactIcon
@@ -85,10 +89,13 @@ const Todos = () => {
 }
 
 const TodoPage=()=>{
-	const {modalForm} = useContext(ContextMain)
+	const {theme,modalForm} = useContext(ContextMain)
+	const isThemeInverted = theme.current.includes("invert")
 	const twClasses = {
-		container:
-			"p-10 w-full min-h-screen flex flex-col space-y-14 items-center bg-primary-dark-color",
+		container:`
+			p-10 w-full min-h-screen flex flex-col space-y-14 items-center
+			${isThemeInverted?"bg-primary-light-color":"bg-primary-dark-color"}
+		`,
 		app: "w-full flex flex-col space-y-6",
 	}
 	return (

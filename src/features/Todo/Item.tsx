@@ -4,8 +4,12 @@ import { LoaderDefault, LoaderError } from "../../UI/Loader"
 import TodoItemAction from "./Item/Action"
 import TodoItemImage from "./Item/Image"
 import TodoItemDetail from "./Item/Detail"
+import { useContext } from "react"
+import { ContextMain } from "../../data/context/main"
 
 const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
+	const {theme} = useContext(ContextMain)
+	const isThemeInverted = theme.current.includes("invert")
 	const todoDelete = useHooksDeleteTodo()
 	const todoUpdate = useHooksUpdateTodo()
 	const todoUpdateStatus = useHooksUpdateStatusTodo()
@@ -37,9 +41,12 @@ const TodoItem: React.FC<{ todo: TypeTodo }> = ({ todo }) => {
 		<>
 			<div
 				id={`container ${todo.id}`}
-				className={`relative w-full p-6 flex flex-col space-y-8 bg-primary-main-color/30 text-primary-main-contrast ${
+				className={`relative w-full p-6 flex flex-col space-y-8 
+				${
 					isTakingAction ? "opacity-30 pointer-events-none" : ""
-				}`}
+				}
+				${isThemeInverted?"bg-primary-light-contrast/10 text-primary-main-color":"bg-primary-main-color/30 text-primary-main-contrast"}
+				`}
 			>
 				{todoDelete.isError && errors.delete}
 				{todoUpdate.isError && errors.update}

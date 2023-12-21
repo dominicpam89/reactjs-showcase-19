@@ -1,6 +1,6 @@
 import { UseMutationResult } from "@tanstack/react-query"
 import { TypeQueryUpdateStatusTodo, TypeTodo, TypeTodoUpdateArg } from "../../../data/types/query"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import UIIconButton from "../../../UI/Buttons/IconButton"
 import {
@@ -13,6 +13,7 @@ import { AnimatePresence } from "framer-motion"
 import TodoForm from "../Form"
 import UIDeleteConfirmation from "../../../UI/Modal/DeleteConfirmation"
 import UIUpdateConfirmation from "../../../UI/Modal/UpdateConfirmation"
+import { ContextMain } from "../../../data/context/main"
 
 type PropsActions = {
 	todo: TypeTodo
@@ -22,6 +23,10 @@ type PropsActions = {
 }
 
 const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, todoUpdateStatus }) => {
+	// theme control
+	const {theme} = useContext(ContextMain)
+	const isThemeInverted = theme.current.includes("invert")
+
 	// Modal
 	const [deleteModal, setDeleteModal] = useState(false)
 	const [failedModal, setFailedModal] = useState(false)
@@ -40,7 +45,7 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			key="btnDelete"
 			icon={<BsFillTrash3Fill />}
 			text="Delete"
-			colorTwClass="text-danger-light-color"
+			colorTwClass={isThemeInverted?"text-danger-dark-contrast/70":"text-danger-light-color"}
 			customClass="saturate-[40%] text-xxs"
 			onClick={() => {
 				setDeleteModal(true)
@@ -53,7 +58,7 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			key="btnFailed"
 			icon={<BsEmojiDizzyFill />}
 			text="Failed"
-			colorTwClass="text-warning-light-color"
+			colorTwClass={isThemeInverted?"text-warning-dark-contrast/70":"text-warning-light-color"}
 			customClass="saturate-[40%] text-xxs"
 			onClick={()=>{
 				setFailedModal(true)
@@ -66,7 +71,7 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			key="btnCompleted"
 			icon={<BsCalendarCheckFill />}
 			text="Completed"
-			colorTwClass="text-success-light-color"
+			colorTwClass={isThemeInverted?"text-success-dark-contrast/70":"text-success-light-color"}
 			customClass="saturate-[40%] text-xxs"
 			onClick={() => {
 				setCompletedModal(true)
@@ -79,6 +84,7 @@ const TodoItemAction: React.FC<PropsActions> = ({ todo, todoDelete, todoUpdate, 
 			key="btnEdit"
 			icon={<BsPencilFill />}
 			text={"Edit"}
+			colorTwClass={isThemeInverted?"text-primary-main-contrast/70":"text-primary-main-contrast"}
 			customClass="text-xxs"
 			onClick={()=>{
 				setFormModal(true)

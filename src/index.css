@@ -50,6 +50,51 @@
 
     transition: all 300ms ease-in-out;
   }
+  .theme-default-invert {
+    --color-primary-main-contrast: 17,24,94;
+    --color-primary-dark-contrast: 7,10,38;
+    --color-primary-light-contrast: 112,116,158;
+    --color-primary-main: 251,252,248;
+    --color-primary-dark: 27,27,27;
+    --color-primary-light: 251,252,248;
+
+    --color-secondary-main-contrast: 84,107,182;
+    --color-secondary-dark-contrast: 59,75,127;
+    --color-secondary-light-contrast: 170,181,219;
+    --color-secondary-main: 251,252,248;
+    --color-secondary-dark: 27,27,27;
+    --color-secondary-light: 251,252,248;
+
+    --color-info-main-contrast: 63,158,219;
+    --color-info-dark-contrast: 38,95,131;
+    --color-info-light-contrast: 159,207,237;
+    --color-info-main: 251,252,248;
+    --color-info-dark: 27,27,27;
+    --color-info-light: 251,252,248;
+
+    --color-danger-main-contrast: 230,35,49;
+    --color-danger-dark-contrast: 115,18,25;
+    --color-danger-light-contrast: 243,145,152;
+    --color-danger-main: 251,252,248;
+    --color-danger-dark: 27,27,27;
+    --color-danger-light: 251,252,248;
+
+    --color-warning-main-contrast: 213,195,31;
+    --color-warning-dark-contrast: 149,137,22;
+    --color-warning-light-contrast: 234,225,143;
+    --color-warning-main: 27,27,27;
+    --color-warning-light: 251,252,248;
+    --color-warning-dark: 27,27,27;
+
+    --color-success-main-contrast: 36,245,15;
+    --color-success-dark-contrast: 18,123,8;
+    --color-success-light-contrast: 146,250,135;
+    --color-success-main: 27,27,27;
+    --color-success-light: 251,252,248;
+    --color-success-dark: 27,27,27;
+
+    transition: all 300ms ease-in-out;
+  }
   .theme-relax {
     --color-primary-main: 2,66,54;
     --color-primary-dark: 1,33,27;
@@ -72,12 +117,12 @@
     --color-info-dark-contrast: 255,255,255;
     --color-info-light-contrast: 30,32,32;
 
-    --color-danger-main: 255,254,254;
-    --color-danger-dark: 102,102,102;
-    --color-danger-light: 255,254,254;
-    --color-danger-main-contrast: 24,22,22;
-    --color-danger-dark-contrast: 243,240,240; 
-    --color-danger-light-contrast: 24,22,22;
+    --color-danger-main: 230,35,49;
+    --color-danger-dark: 115,18,25;
+    --color-danger-light: 243,145,152;
+    --color-danger-main-contrast: 251,252,248;
+    --color-danger-dark-contrast: 251,252,248;
+    --color-danger-light-contrast: 27,27,27;
 
     --color-warning-main: 228,191,70;
     --color-warning-dark: 114,96,35;
@@ -92,6 +137,51 @@
     --color-success-main-contrast: 30,30,28;
     --color-success-dark-contrast: 241,241,240;
     --color-success-light-contrast: 33,34,31;
+
+    transition: all 300ms ease-in-out;
+  }
+  .theme-relax-invert {
+    --color-primary-main-contrast: 2,66,54;
+    --color-primary-dark-contrast: 1,33,27;
+    --color-primary-light-contrast: 140,174,167;
+    --color-primary-main: 217,228,226;
+    --color-primary-dark: 24,25,25;
+    --color-primary-light: 231,238,237;
+
+    --color-secondary-main-contrast: 230,196,238;
+    --color-secondary-dark-contrast: 138,118,143;
+    --color-secondary-light-contrast: 240,220,245;
+    --color-secondary-main: 30,28,30;
+    --color-secondary-dark: 43,40,44;
+    --color-secondary-light: 245,245,245;
+
+    --color-info-main-contrast: 219,236,243;
+    --color-info-dark-contrast: 131,142,146;
+    --color-info-light-contrast: 233,244,248;
+    --color-info-main: 32,33,34;
+    --color-info-light: 255,255,255;
+    --color-info-dark: 30,32,32;
+
+    --color-danger-main-contrast: 255,254,254;
+    --color-danger-dark-contrast: 102,102,102;
+    --color-danger-light-contrast: 255,254,254;
+    --color-danger-main: 24,22,22;
+    --color-danger-light: 243,240,240; 
+    --color-danger-dark: 24,22,22;
+
+    --color-warning-main-contrast: 228,191,70;
+    --color-warning-dark-contrast: 114,96,35;
+    --color-warning-light-contrast: 239,217,144;
+    --color-warning-main: 37,37,35;
+    --color-warning-light: 243,242,239;
+    --color-warning-dark: 30,30,28;
+
+    --color-success-main-contrast: 214,235,169;
+    --color-success-dark-contrast: 78,86,61;
+    --color-success-light-contrast: 230,243,203;
+    --color-success-main: 30,30,28;
+    --color-success-light: 241,241,240;
+    --color-success-dark: 33,34,31;
 
     transition: all 300ms ease-in-out;
   }
@@ -139,13 +229,5 @@
     --color-success-light-contrast: 27,27,27;
 
     transition: all 300ms ease-in-out;
-  }
-  .theme-earth-temp{
-    --color-info-main: #abbfe2;
-    --color-info-dark: #566071;
-    --color-info-light: #cdd9ee;
-    --color-info-main-contrast: #202122;
-    --color-info-dark-contrast: #FFFFFF;
-    --color-info-light-contrast: #202122;
   }
 }

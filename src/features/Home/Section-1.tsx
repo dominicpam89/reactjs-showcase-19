@@ -1,20 +1,45 @@
+import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import { ContextMain } from "../../data/context/main"
 
 type Props = {
 	onAboutClick: ()=>void
 }
 
 const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
-	const logoSrc = "/logo/logo-white-sm.png"
+	const {theme} = useContext(ContextMain)
+	const logoSrc =
+		theme.current === "theme-default" || theme.current === "theme-relax"
+			? "/logo/logo-white-sm.png"
+			: theme.current === "theme-default-invert"
+			? "/logo/logo-default-sm.png"
+			: "/logo/logo-relax-sm.png"
 	const navigate = useNavigate()
 
+	const isThemeInverted = theme.current.includes("invert")
+
 	const twClasses = {
-		container: `relative w-full min-h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b from-primary-main-color to-primary-dark-color opacity-90`,
+		container: `
+			relative w-full min-h-screen flex flex-col space-y-14 items-center justify-center bg-gradient-to-b 
+			${
+				isThemeInverted
+					? "from-primary-main-color to-primary-light-color"
+					: "from-primary-main-color to-primary-dark-color"
+			}  
+			opacity-90
+		`,
 		logo: `w-auto h-24`,
 		heading: `text-lg font-light text-primary-main-contrast`,
 		title: `text-4xl font-black text-primary-main-contrast [text-shadow:_2px_2px_5px_rgba(var(--color-primary-main-contrast),30%)]`,
 		btnAbout: `w-full px-4 py-2 rounded-md border border-primary-main-contrast/50 text-md text-primary-main-contrast`,
-		btnDemo: `w-full px-4 py-2 rounded-md bg-gradient-to-br from-primary-main-color to-danger-dark-color text-md text-primary-main-contrast`,
+		btnDemo: `
+			w-full px-4 py-2 rounded-md bg-gradient-to-br text-md
+			${
+				isThemeInverted
+					? "from-primary-main-contrast to-secondary-dark-color text-primary-main-color"
+					: "from-primary-main-color to-danger-dark-color text-primary-main-contrast"
+			}
+		`,
 	}
 
 	return (

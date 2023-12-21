@@ -1,9 +1,53 @@
 import { TypeInputField } from "../../data/types/Props"
 import UIInputHelperText from "./HelperText"
-import { utilsGetInputTwClassesColor as getInputClasses } from "../../data/utils/todoForm"
+import { useContext } from "react"
+import { ContextMain } from "../../data/context/main"
 
 const UIInputField:React.FC<TypeInputField> = ({id,label,type="text",register=undefined, error=undefined}) => {
-	const {inputClass,labelClass} = getInputClasses(error)
+	const isThemeInverted = useContext(ContextMain).theme.current.includes("invert")
+	const twClasses = {
+		input:{
+			error:{
+				inverted: "text-warning-main-contrast border-warning-main-contrast/50 focus:border-warning-main-contrast/50",
+				default: "text-danger-main-color border-danger-main-color/50 focus:border-danger-main-color/50",
+			},
+			normal:{
+				inverted: "text-primary-main-color border-primary-main-color/50 focus:border-primary-main-color/50",
+				default: "text-primary-main-color border-primary-main-color/50 focus:border-primary-main-color/50"
+			}
+		},
+		label:{
+			error:{
+				inverted:"text-warning-main-contrast peer-focus:text-warning-main-contrast",
+				default:"text-danger-main-color peer-focus:text-danger-main-color",
+			},
+			normal:{
+				inverted:"text-primary-main-color/50 peer-focus:text-primary-main-color",
+				default: "text-primary-main-color/50 peer-focus:text-primary-main-color"
+			}
+		}
+	}
+	let inputClass, labelClass
+	if(error){
+		if(isThemeInverted){
+			inputClass = twClasses.input.error.inverted
+			labelClass = twClasses.label.error.inverted
+		}
+		else{
+			inputClass = twClasses.input.error.default
+			labelClass = twClasses.label.error.default
+		}
+	}
+	else{
+		if(isThemeInverted){
+			inputClass = twClasses.input.normal.inverted
+			labelClass = twClasses.label.normal.inverted
+		}
+		else{
+			inputClass = twClasses.input.normal.default
+			labelClass = twClasses.label.normal.default
+		}
+	}
 	return (
 		<>
 			<div id="form-input-group" className={`relative error`}>
@@ -28,7 +72,7 @@ const UIInputField:React.FC<TypeInputField> = ({id,label,type="text",register=un
             peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 
             peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:start-4
             rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1
-						${labelClass}  
+						${labelClass}
 					`}
 				>
 					{label}

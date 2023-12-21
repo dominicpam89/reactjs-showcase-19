@@ -2,6 +2,8 @@ import { BsBullseye } from "react-icons/bs"
 import { BsCalendar2RangeFill } from "react-icons/bs"
 import { BsFillHddRackFill } from "react-icons/bs"
 import UIReactIcon from "../../UI/ReactIcon"
+import { ContextMain } from "../../data/context/main"
+import { useContext } from "react"
 
 type CardProps = {
 	icon?: React.ReactNode | null
@@ -9,11 +11,13 @@ type CardProps = {
 	subheading: string
 }
 const Card: React.FC<CardProps> = ({ icon = null, heading, subheading }) => {
+	const {theme} = useContext(ContextMain)
+	const isThemeInverted = theme.current.includes("invert")
 	const twClasses = {
 		card: `flex flex-col space-y-4 items-center px-12 text-center`,
 		text: `flex flex-col space-y-2`,
-		icon: "w-10 h-auto text-primary-main-color",
-		heading: `font-extrabold text-md text-primary-main-color uppercase`,
+		icon: `w-10 h-auto ${isThemeInverted?"text-primary-light-contrast":"text-primary-main-color"}`,
+		heading: `font-extrabold text-md uppercase ${isThemeInverted?"text-primary-light-contrast":"text-primary-main-color"}`,
 		content: `font-normal text-xs tracking-wide text-primary-main-color`,
 	}
 
@@ -36,8 +40,13 @@ const Card: React.FC<CardProps> = ({ icon = null, heading, subheading }) => {
 }
 
 export default function HomeSection2() {
+	const {theme} = useContext(ContextMain)
+	const isThemeInverted = theme.current.includes("invert")
 	const twClasses = {
-		container: `w-full px-16 py-12 min-h-screen flex flex-col items-center justify-around space-y-8 bg-primary-main-contrast opacity-90`,
+		container: `
+			w-full px-16 py-12 min-h-screen flex flex-col items-center justify-around space-y-8 opacity-90
+			${isThemeInverted?"bg-primary-dark-color":"bg-primary-main-contrast"}
+		`,
 	}
 
 	return (

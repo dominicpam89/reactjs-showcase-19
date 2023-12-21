@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form"
+import { FieldErrors, useForm } from "react-hook-form"
 import {
 	TypeTodoFormValues,
 	utilsTodoFormDefaultValues as defaultValues,
@@ -18,6 +18,7 @@ import { ContextMain } from "../../data/context/main"
 import { useHooksAddTodo } from "../../data/hooks/query"
 import { TypeTodo, TypeTodoUpdateArg } from "../../data/types/query"
 import { UseMutationResult } from "@tanstack/react-query"
+import { useAnimate, stagger } from "framer-motion"
 
 type Props = {
 	todo?: TypeTodo
@@ -26,6 +27,7 @@ type Props = {
 }
 const TodoForm:React.FC<Props> = ({todo=undefined, todoUpdate, onClose}) => {
 	const {modalForm} = useContext(ContextMain)
+	const [scope,animate] = useAnimate()
 	const {
 		register,
 		handleSubmit,
@@ -45,6 +47,20 @@ const TodoForm:React.FC<Props> = ({todo=undefined, todoUpdate, onClose}) => {
 		}
 		else addTodo(data)
 	}
+	const onSubmitInvalid = (errors:FieldErrors<TypeTodoFormValues>)=>{
+		const errorsRef = {
+			tag: errors.tag && 'input[id="tag"],',
+			details: errors.details && "textarea,",
+			date: errors.dateFinished && 'input[id="date"],',
+			image: errors.image && 'div[id="image-input"]',
+		}
+		const scopeElements = Object.values(errorsRef).join("")
+		animate(
+			scopeElements,
+			{ x: [-50,0,50,0] },
+			{ delay: stagger(0.05), type: "spring", bounce:0.7 }
+		)
+	}
 	const cancelForm = ()=>{
 		if(todo) onClose()
 		else {
@@ -59,9 +75,10 @@ const TodoForm:React.FC<Props> = ({todo=undefined, todoUpdate, onClose}) => {
 	return (
 		<UIModal padding="sm" onClick={todo?onClose:modalForm.hide}>
 			<form
+				ref={scope}
 				className="w-full p-10 flex flex-col space-y-5 bg-primary-main-contrast"
 				onClick={(e) => e.stopPropagation()}
-				onSubmit={handleSubmit(onSubmit)}
+				onSubmit={handleSubmit(onSubmit, onSubmitInvalid)}
 			>
 				{isQueryError || todoUpdate?.isError && <LoaderError error={queryError} />}
 				<UIInputField

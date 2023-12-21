@@ -5,7 +5,7 @@ import UIInputHelperText from "./HelperText"
 const UIInputImageSelect:React.FC<TypeInputImageSelect> = ({register={}, onImageSelect, error=undefined, existedImage}) => {
 	return (
 		<>
-			<div>
+			<div id="image-input">
 				<input
 					type="text"
 					className="hidden"

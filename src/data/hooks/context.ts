@@ -2,7 +2,7 @@ import { useState } from "react"
 import { TypeThemeSelection } from "../types/context"
 
 export const useHooksContextMain = () => {
-	const [theme, setTheme] = useState<TypeThemeSelection>("theme-relax-invert")
+	const [theme, setTheme] = useState<TypeThemeSelection>("theme-default")
 	const _theme = {
 		current: theme,
 		changeTheme: (selectedTheme: TypeThemeSelection) =>

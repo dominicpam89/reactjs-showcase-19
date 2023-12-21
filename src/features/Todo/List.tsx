@@ -3,7 +3,7 @@ import { useHooksGetTodos } from "../../data/hooks/query"
 import TodoItem from "./Todos/Item"
 import { LoaderDefault, LoaderError } from "../../UI/Loader"
 
-const TodoTodos = () => {
+const TodoList = () => {
 	const [searchParam] = useSearchParams()
 	const mode = searchParam.get("mode")
 	const { data, error, isError, isLoading } = useHooksGetTodos()
@@ -35,4 +35,4 @@ const TodoTodos = () => {
 	return content
 }
 
-export default TodoTodos
+export default TodoList

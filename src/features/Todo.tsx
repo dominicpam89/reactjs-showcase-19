@@ -1,9 +1,8 @@
-import { useContext, lazy, Suspense } from "react"
+import { useContext } from "react"
 import { ContextMain } from "../data/context/main"
-import { LoaderDefault } from "../UI/Loader"
 import { AnimatePresence } from "framer-motion"
 import TodoBrand from "./Todo/Brand"
-const TodoForm = lazy(()=>import("./Todo/Form"))
+import TodoForm from "./Todo/Form"
 import TodoBtnModal from "./Todo/BtnModal"
 import TodoTabs from "./Todo/Tabs"
 import TodoList from "./Todo/List"
@@ -23,9 +22,7 @@ const TodoPage=()=>{
 		<>
 			<AnimatePresence>
 				{modalForm.visibility && (
-					<Suspense fallback={<LoaderDefault scene="dark" />}>
 						<TodoForm onClose={() => {}} />
-					</Suspense>
 				)}
 			</AnimatePresence>
 			<div id="container" className={twClasses.container}>

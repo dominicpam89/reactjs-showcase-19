@@ -27,16 +27,9 @@ const ThemeSelectButton: React.FC<Props> = ({ themeOptions }) => {
 				`}
 			onClick={() => themeSelection.toggle()}
 		>
-			{/* Icon */}
-			<motion.span
-				initial={{ rotateZ: themeSelection.visible ? 0 : -180 }}
-				animate={{ rotateZ: themeSelection.visible ? 180 : 0 }}
-				exit={{ rotateZ: themeSelection.visible ? 0 : -180 }}
-			>
+			<motion.span animate={{ rotateZ: themeSelection.visible ? 180 : 0 }}>
 				<UIReactIcon icon={<BsDiscFill />} value={{ className: "h-4" }} />
 			</motion.span>
-
-			{/* Text */}
 			<span>{selectedTheme?.text}</span>
 		</button>
 	)

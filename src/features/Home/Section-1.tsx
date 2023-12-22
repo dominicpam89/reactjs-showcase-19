@@ -1,12 +1,16 @@
-import { useContext } from "react"
+import { useContext, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { ContextMain } from "../../data/context/main"
+import { useScroll, useTransform, motion } from "framer-motion"
 
 type Props = {
 	onAboutClick: ()=>void
 }
 
 const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
+	const containerRef = useRef(null)
+	const {scrollY} = useScroll()
+	const opacity = useTransform(scrollY, [0,800],[0.9,0.4])
 	const {theme} = useContext(ContextMain)
 	const logoSrc =
 		theme.current === "theme-default" || theme.current === "theme-relax"
@@ -44,7 +48,14 @@ const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 
 	return (
 		<>
-			<div id="section-1" className={twClasses.container}>
+			<motion.div
+				id="section-1"
+				className={twClasses.container}
+				style={{
+					opacity: opacity
+				}}
+				ref={containerRef}
+			>
 				<img src={logoSrc} className={twClasses.logo} />
 				<div>
 					<h1 className="flex flex-col items-center space-y-2">
@@ -53,7 +64,9 @@ const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 						<span className={twClasses.title}>Fancydo</span>
 					</h1>
 					<div id="btn-group" className="pt-8 flex flex-row space-x-2">
-						<button className={twClasses.btnAbout} onClick={onAboutClick}>About</button>
+						<button className={twClasses.btnAbout} onClick={onAboutClick}>
+							About
+						</button>
 						<button
 							className={twClasses.btnDemo}
 							onClick={() => navigate("/app")}
@@ -62,7 +75,7 @@ const HomeSection1:React.FC<Props> = ({onAboutClick}) => {
 						</button>
 					</div>
 				</div>
-			</div>
+			</motion.div>
 		</>
 	)
 }

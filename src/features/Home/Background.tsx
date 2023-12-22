@@ -7,10 +7,8 @@ const HomeBackground = () => {
 	const desktopView = useHooksMediaQuery(`(min-width:768px)`)
 
 	let imgUrl = ""
-	if (context.theme.current === "theme-default")
+	if (context.theme.current === "theme-default" || context.theme.current === "theme-default-invert")
 		imgUrl = desktopView ? "/theme-default/hero-desktop.jpg" : "/theme-default/hero-mobile.jpg"
-	else if (context.theme.current === "theme-earth")
-		imgUrl = desktopView ? "/theme-earth/hero-desktop.jpg" : "/theme-earth/hero-mobile.jpg"
 	else imgUrl = desktopView ? "/theme-relax/hero-desktop.jpg" : "/theme-relax/hero-mobile.jpg"
 
 	return (

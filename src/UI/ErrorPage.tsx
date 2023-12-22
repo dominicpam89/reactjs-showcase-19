@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { ContextMain } from "../data/context/main"
 import { useContext } from "react"
-import { motion, Variant, Variants } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 
 interface MotionVar {
 	container: Variants
